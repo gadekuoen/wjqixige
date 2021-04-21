@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/wjqixige/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/wjqixige/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/wjqixige/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/wjqixige/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/wjqixige/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;gadekuoen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;wjqixige&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;wjqixige&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="impala是cloudera提供的一款高效率的sql查询工具，提供实时的查询效果，官方测试性能比hive快10到100倍，其sql查询比sparkSQL还要更加快速，号称是当前大数据领域最快的查询sql工具。它是基于hive并使用内存进行计算，兼顾数据仓库，具有实时，批处理，多并发等。 impala是参照谷歌的新三篇论文（Caffeine–网络搜索引擎、Pregel–分布式图计算、Dremel–">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Impala学习笔记">
+<meta property="og:url" content="https://gadekuoen.github.io/wjqixige/2019/12/23/Impala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="栖溪阁晓生">
+<meta property="og:description" content="impala是cloudera提供的一款高效率的sql查询工具，提供实时的查询效果，官方测试性能比hive快10到100倍，其sql查询比sparkSQL还要更加快速，号称是当前大数据领域最快的查询sql工具。它是基于hive并使用内存进行计算，兼顾数据仓库，具有实时，批处理，多并发等。 impala是参照谷歌的新三篇论文（Caffeine–网络搜索引擎、Pregel–分布式图计算、Dremel–">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-23T13:07:55.000Z">
+<meta property="article:modified_time" content="2019-12-23T13:24:40.064Z">
+<meta property="article:author" content="Mr.wj">
+<meta property="article:tag" content="Impala">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gadekuoen.github.io/wjqixige/2019/12/23/Impala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;gadekuoen.github.io&#x2F;wjqixige&#x2F;2019&#x2F;12&#x2F;23&#x2F;Impala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;12&#x2F;23&#x2F;Impala学习笔记&#x2F;&quot;,&quot;title&quot;:&quot;Impala学习笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Impala学习笔记 | 栖溪阁晓生</title><script src="/wjqixige/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/wjqixige/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/wjqixige/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">栖溪阁晓生</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人在线笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/wjqixige/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/wjqixige/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/wjqixige/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/wjqixige/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/wjqixige/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/wjqixige/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Impala%E4%B8%8EHive%E5%85%B3%E7%B3%BB"><span class="nav-text">Impala与Hive关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#impala%E4%B8%8Ehive%E5%BC%82%E5%90%8C"><span class="nav-text">impala与hive异同</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#impala%E4%BD%BF%E7%94%A8%E7%9A%84%E4%BC%98%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="nav-text">impala使用的优化技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92"><span class="nav-text">执行计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="nav-text">内存使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6"><span class="nav-text">调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E9%94%99"><span class="nav-text">容错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%82%E5%BA%94%E9%9D%A2"><span class="nav-text">适应面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Impala%E6%9E%B6%E6%9E%84"><span class="nav-text">Impala架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#impalad"><span class="nav-text">impalad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impala-State-Store"><span class="nav-text">Impala State Store</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI"><span class="nav-text">CLI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Catalogd"><span class="nav-text">Catalogd</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Impala%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-text">Impala查询处理过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Impala%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="nav-text">Impala安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E6%8F%90"><span class="nav-text">安装前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85%E3%80%81%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="nav-text">下载安装包、依赖包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0yum%E6%BA%90"><span class="nav-text">配置本地yum源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E5%AE%89%E8%A3%85%E5%8C%85%E8%A7%A3%E5%8E%8B"><span class="nav-text">上传安装包解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0yum%E6%BA%90%E4%BF%A1%E6%81%AF"><span class="nav-text">配置本地yum源信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Impala"><span class="nav-text">安装Impala</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E8%A7%84%E5%88%92"><span class="nav-text">集群规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85"><span class="nav-text">主节点安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85"><span class="nav-text">从节点安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9hadoop%E3%80%81hive%E9%85%8D%E7%BD%AE"><span class="nav-text">修改hadoop、hive配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9hive%E9%85%8D%E7%BD%AE"><span class="nav-text">修改hive配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9hadoop%E9%85%8D%E7%BD%AE"><span class="nav-text">修改hadoop配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%90%AFhadoop%E3%80%81hive"><span class="nav-text">重启hadoop、hive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6hadoop%E3%80%81hive%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">复制hadoop、hive配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9impala%E9%85%8D%E7%BD%AE"><span class="nav-text">修改impala配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9impala%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="nav-text">修改impala默认配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0mysql%E9%A9%B1%E5%8A%A8"><span class="nav-text">添加mysql驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9bigtop%E9%85%8D%E7%BD%AE"><span class="nav-text">修改bigtop配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E3%80%81%E5%85%B3%E9%97%ADimpala%E6%9C%8D%E5%8A%A1"><span class="nav-text">启动、关闭impala服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#impala-WEB-UI"><span class="nav-text">impala WEB UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BDimpala"><span class="nav-text">卸载impala</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Impala-shell%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="nav-text">Impala-shell命令参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#impala-shell%E5%A4%96%E9%83%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">impala-shell外部命令</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/"><img class="site-author-image" itemprop="image" alt="Mr.wj" src="/wjqixige/uploads/logo.jpg"></a>
+  <p class="site-author-name" itemprop="name">Mr.wj</p>
+  <div class="site-description" itemprop="description">记录和分享我学习是记录的笔记和个人想法</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/wjqixige/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gadekuoen/wjqixige" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gadekuoen&#x2F;wjqixige" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wjqixige/wujiang569@126.com" title="E-Mail → wujiang569@126.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gadekuoen.github.io/wjqixige/2019/12/23/Impala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/wjqixige/uploads/logo.jpg">
+      <meta itemprop="name" content="Mr.wj">
+      <meta itemprop="description" content="记录和分享我学习是记录的笔记和个人想法">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="栖溪阁晓生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Impala学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-12-23 21:07:55 / 修改时间：21:24:40" itemprop="dateCreated datePublished" datetime="2019-12-23T21:07:55+08:00">2019-12-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/wjqixige/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>impala是cloudera提供的一款高效率的sql查询工具，提供实时的查询效果，官方测试性能比hive快10到100倍，其sql查询比sparkSQL还要更加快速，号称是当前大数据领域最快的查询sql工具。它是基于hive并使用内存进行计算，兼顾数据仓库，具有实时，批处理，多并发等。</p>
+<p>impala是参照谷歌的新三篇论文（Caffeine–网络搜索引擎、Pregel–分布式图计算、Dremel–交互式分析工具）当中的Dremel实现而来，其中旧三篇论文分别是（BigTable,GFS,MapReduce）分别对应我们即将学的HBase和已经学过的HDFS以及MapReduce。</p>
+<span id="more"></span>
+
+<h1 id="Impala与Hive关系"><a href="#Impala与Hive关系" class="headerlink" title="Impala与Hive关系"></a>Impala与Hive关系</h1><p>impala是基于hive的大数据分析查询引擎，直接使用hive的源数据库metadata，意味着impala元数据都存储在hive的metastore当中，并且impala兼容hive的绝大多数sql语法。所以需要安装impala的话，必须先安装hive，保证hive安装成功，并且还需要启动hive的metastore服务。</p>
+<p>hive元数据包含用hive创建的database、table等元信息。元数据存储在关系性数据库中，如Derby、mysql等。</p>
+<p>客户端连接metastore服务，metastore再去连接mysql数据库来存区元数据。有了metastore服务，就可以有多个客户端同时连接，而且这些客户端不需要知道mysql数据库的用户名和密码，只需要连接metastore服务即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup hive --service metastore &gt;&gt; ~/metastore.log 2 &gt; &amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>hive适合长时间的批处理查询分析，而impala适合于实时交互式sql查询。可以先使用hive进行数据转换处理，之后使用impala在hive处理后的结果数据集上进行快速的数据分析。</p>
+<h1 id="impala与hive异同"><a href="#impala与hive异同" class="headerlink" title="impala与hive异同"></a>impala与hive异同</h1><p>impala与hive都是构建在hadoop之上的数据查询工具各有不同的侧重适用面，但从客户端使用来看impala与hive有很多的共同之处，如数据表元数据、ODBC/JDBC驱动、SQL语法、灵活的文件格式、存储资源池等。</p>
+<p>但是Impala跟Hive最大的优化区别在于：<strong>没有使用</strong> <strong>MapReduce</strong>进行并行计算，虽然MapReduce是非常好的并行计算框架，但它更多的面向批处理模式，而不是面向交互式的SQL执行。与 MapReduce相比，Impala把整个查询分成一执行计划树，而不是一连串的MapReduce任务，在分发执行计划后，Impala使用拉式获取数据的方式获取结果，把结果数据组成按执行树流式传递汇集，减少的了把中间结果写入磁盘的步骤，再从磁盘读取数据的开销。Impala使用服务的方式避免每次执行查询都需要启动的开销，即相比Hive没了MapReduce启动时间。</p>
+
+
+<h2 id="impala使用的优化技术"><a href="#impala使用的优化技术" class="headerlink" title="impala使用的优化技术"></a>impala使用的优化技术</h2><p>使用LLVM产生运行代码，针对特定查询生成特定代码，同时使用Inline的方式减少函数调用的开销，加快执行效率。(C++特性)</p>
+<p>充分利用可用的硬件指令（SSE4.2）。</p>
+<p>更好的IO调度，Impala知道数据块所在的磁盘位置能够更好的利用多磁盘的优势，同时Impala支持直接数据块读取和本地代码计算checksum。</p>
+<p>通过选择合适数据存储格式可以得到最好性能（Impala支持多种存储格式）。</p>
+<p>最大使用内存，中间结果不写磁盘，及时通过网络以stream的方式传递。</p>
+<h2 id="执行计划"><a href="#执行计划" class="headerlink" title="执行计划"></a>执行计划</h2><p><strong>Hive</strong>: 依赖于MapReduce执行框架，执行计划分成 map-&gt;shuffle-&gt;reduce-&gt;map-&gt;shuffle-&gt;reduce…的模型。如果一个Query会 被编译成多轮MapReduce，则会有更多的写中间结果。由于MapReduce执行框架本身的特点，过多的中间过程会增加整个Query的执行时间。</p>
+<p><strong>Impala</strong>: 把执行计划表现为一棵完整的执行计划树，可以更自然地分发执行计划到各个Impalad执行查询，而不用像Hive那样把它组合成管道型的 map-&gt;reduce模式，以此保证Impala有更好的并发性和避免不必要的中间sort与shuffle。</p>
+<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><p><strong>Hive</strong>: 采用推的方式，每一个计算节点计算完成后将数据主动推给后续节点。</p>
+<p><strong>Impala</strong>: 采用拉的方式，后续节点通过getNext主动向前面节点要数据，以此方式数据可以流式的返回给客户端，且只要有1条数据被处理完，就可以立即展现出来，而不用等到全部处理完成，更符合SQL交互式查询使用。</p>
+<h2 id="内存使用"><a href="#内存使用" class="headerlink" title="内存使用"></a>内存使用</h2><p><strong>Hive</strong>: 在执行过程中如果内存放不下所有数据，则会使用外存，以保证Query能顺序执行完。每一轮MapReduce结束，中间结果也会写入HDFS中，同样由于MapReduce执行架构的特性，shuffle过程也会有写本地磁盘的操作。</p>
+<p><strong>Impala</strong>: 在遇到内存放不下数据时，版本1.0.1是直接返回错误，而不会利用外存，以后版本应该会进行改进。这使用得Impala目前处理Query会受到一定的限制，最好还是与Hive配合使用。</p>
+<h2 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h2><p><strong>Hive</strong>: 任务调度依赖于Hadoop的调度策略。</p>
+<p><strong>Impala</strong>: 调度由自己完成，目前只有一种调度器simple-schedule，它会尽量满足数据的局部性，扫描数据的进程尽量靠近数据本身所在的物理机器。调度器 目前还比较简单，在SimpleScheduler::GetBackend中可以看到，现在还没有考虑负载，网络IO状况等因素进行调度。但目前 Impala已经有对执行过程的性能统计分析，应该以后版本会利用这些统计信息进行调度吧。</p>
+<h2 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h2><p><strong>Hive</strong>: 依赖于Hadoop的容错能力。</p>
+<p><strong>Impala</strong>: 在查询过程中，没有容错逻辑，如果在执行过程中发生故障，则直接返回错误（这与Impala的设计有关，因为Impala定位于实时查询，一次查询失败， 再查一次就好了，再查一次的成本很低）。</p>
+<h2 id="适应面"><a href="#适应面" class="headerlink" title="适应面"></a>适应面</h2><p><strong>Hive</strong>: 复杂的批处理查询任务，数据转换任务。</p>
+<p><strong>Impala</strong>：实时数据分析，因为不支持UDF，能处理的问题域有一定的限制，与Hive配合使用,对Hive的结果数据集进行实时分析。</p>
+<h1 id="Impala架构"><a href="#Impala架构" class="headerlink" title="Impala架构"></a>Impala架构</h1><p>impala主要有<code>Impalad</code>、<code>State Store</code>、<code>Catalogd</code>和<code>CLI</code>组成。</p>
+
+
+<h2 id="impalad"><a href="#impalad" class="headerlink" title="impalad"></a>impalad</h2><p>与DataNode运行在同一节点上，由Impalad进程表示，它接收客户端的查询请求（<em>接收查询请求的Impalad<strong>为Coordinator</strong>，Coordinator<strong>通过JNI</strong>调用java<strong>前端解释SQL</strong>查询语句，生成查询计划树，再通过调度器把执行计划分发给具有相应数据的其它Impalad**进行执行</em>），读写数据，并行执行查询，并把结果通过网络流式的传送回给Coordinator，由Coordinator返回给客户端。同时Impalad也与State Store保持连接，用于确定哪个Impalad是健康和可以接受新的工作。</p>
+<p>在Impalad中启动三个ThriftServer: beeswax_server（连接客户端），hs2_server（借用Hive元数据）， be_server（Impalad内部使用）和一个ImpalaServer服务。</p>
+<h2 id="Impala-State-Store"><a href="#Impala-State-Store" class="headerlink" title="Impala State Store"></a>Impala State Store</h2><p>跟踪集群中的Impalad的健康状态及位置信息，由statestored进程表示，它通过创建多个线程来处理Impalad的注册订阅和与各Impalad保持心跳连接，各Impalad都会缓存一份State Store中的信息，当State Store离线后（Impalad发现State Store处于离线时，会进入recovery模式，反复注册，当State Store重新加入集群后，自动恢复正常，更新缓存数据）因为Impalad有State Store的缓存仍然可以工作，但会因为有些Impalad失效了，而已缓存数据无法更新，导致把执行计划分配给了失效的Impalad，导致查询失败。</p>
+<h2 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h2><p>提供给用户查询使用的命令行工具（Impala Shell使用python实现），同时Impala还提供了Hue，JDBC， ODBC使用接口。</p>
+<h2 id="Catalogd"><a href="#Catalogd" class="headerlink" title="Catalogd"></a>Catalogd</h2><p>作为metadata访问网关，从Hive Metastore等外部catalog中获取元数据信息，放到impala自己的catalog结构中。impalad执行ddl命令时通过catalogd由其代为执行，该更新则由statestored广播。</p>
+<h1 id="Impala查询处理过程"><a href="#Impala查询处理过程" class="headerlink" title="Impala查询处理过程"></a>Impala查询处理过程</h1><p>impalad分为java前端与C++处理后端，接受客户端连接的Impalad即作为这次查询的Coordinator,Coordinator通过JNI调用java前端对用户的查询SQL进行分析生成执行计划树。</p>
+
+
+<p>Java前端产生的执行计划树以Thrift数据格式返回给C++后端（Coordinator）（*执行计划分为多个阶段，每一个阶段叫做一个PlanFragment<strong>，每一个PlanFragment</strong>在执行时可以由多个Impalad<strong>实例并行执行(<strong>有些PlanFragment</strong>只能由一个Impalad</strong>实例执行,**如聚合操作)*<em>，整个执行计划为一执行计划树</em>）。</p>
+<p>Coordinator根据执行计划，数据存储信息（<em>Impala<strong>通过libhdfs</strong>与HDFS<strong>进行交互。通过hdfsGetHosts</strong>方法获得文件数据块所在节点的位置信息</em>），通过调度器（现在只有simple-scheduler, 使用round-robin算法）Coordinator::Exec对生成的执行计划树分配给相应的后端执行器Impalad执行（查询会使用LLVM进行代码生成，编译，执行），通过调用GetNext()方法获取计算结果。</p>
+<p>如果是insert语句，则将计算结果通过libhdfs写回HDFS当所有输入数据被消耗光，执行结束，之后注销此次查询服务。</p>
+<h1 id="Impala安装部署"><a href="#Impala安装部署" class="headerlink" title="Impala安装部署"></a>Impala安装部署</h1><h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><p>集群需要提前安装好hadoop,hive。</p>
+<p>hive安装包scp在所有需要安装impala的节点上，因为impala需要引用hive的依赖包。</p>
+<p>hadoop框架需要支持C程序访问接口，查看下图，如果有路径下有这个文件，就证明支持C接口。</p>
+
+
+<h2 id="下载安装包、依赖包"><a href="#下载安装包、依赖包" class="headerlink" title="下载安装包、依赖包"></a>下载安装包、依赖包</h2><p>由于impala没有提供tar包进行安装，只提供了rpm包。因为在安装impala的时候，需要使用rpm包来进行安装。rpm包只有cloudera公司提供，所以需要到cloudera公司网站去下载rpm包。下载地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;archive.cloudera.com&#x2F;cdh5&#x2F;repo-as-tarball&#x2F;5.14.0&#x2F;cdh5.14.0-centos6.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>这里有一个问题，impala的rpm包依赖非常多的其他rpm包，可以一个个将依赖包找出来，也可以将所有的rpm包下载下来，制作成本地yum源来进行安装。</p>
+<h2 id="配置本地yum源"><a href="#配置本地yum源" class="headerlink" title="配置本地yum源"></a>配置本地yum源</h2><h3 id="上传安装包解压"><a href="#上传安装包解压" class="headerlink" title="上传安装包解压"></a>上传安装包解压</h3><p>将安装包大文件上传到服务器/cloudera_data目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /cloudera_data</span><br><span class="line">tar -zxvf cdh5.14.0-centos6.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置本地yum源信息"><a href="#配置本地yum源信息" class="headerlink" title="配置本地yum源信息"></a>配置本地yum源信息</h3><p>安装Apache Server服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install httpd</span><br><span class="line">service httpd start</span><br><span class="line">chkconfig httpd on</span><br></pre></td></tr></table></figure>
+
+<p>配置本地yum源的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d</span><br><span class="line">vim localimp.repo</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[localimp]</span></span><br><span class="line"><span class="attr">name</span>=<span class="string">localimp</span></span><br><span class="line"><span class="attr">baseurl</span>=<span class="string">http://node03/cdh5.14.0/</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="string">1</span></span><br></pre></td></tr></table></figure>
+
+<p>创建apache httpd的读取链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ln -s /cloudera_data/cdh/5.14.0 /var/www/html/cdh5.14.0</span><br><span class="line"></span><br><span class="line"><span class="comment">## 使yum源生效</span></span><br><span class="line">yum repolist all</span><br></pre></td></tr></table></figure>
+
+<p><strong>确保linux的Selinux关闭</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 临时关闭：</span></span><br><span class="line">[root@localhost ~]<span class="comment"># getenforce</span></span><br><span class="line">Enforcing</span><br><span class="line">[root@localhost ~]<span class="comment"># setenforce 0</span></span><br><span class="line">[root@localhost ~]<span class="comment"># getenforce</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 永久关闭：</span></span><br><span class="line">[root@localhost ~]<span class="comment"># vim /etc/sysconfig/selinux</span></span><br><span class="line">SELINUX=enforcing 改为 SELINUX=disabled</span><br><span class="line">重启服务reboot</span><br></pre></td></tr></table></figure>
+
+<p>通过浏览器访问本地yum源，如果出现下述页面则成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.17.120&#x2F;cdh5.14.0</span><br></pre></td></tr></table></figure>
+
+<p>将本地yum源配置文件localimp.repo发送到所有需要安装impala的节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">scp localimp.repo node02:<span class="variable">$PWD</span></span><br><span class="line">scp localimp.repo node01:<span class="variable">$PWD</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Impala"><a href="#安装Impala" class="headerlink" title="安装Impala"></a>安装Impala</h2><h3 id="集群规划"><a href="#集群规划" class="headerlink" title="集群规划"></a>集群规划</h3><table>
+<thead>
+<tr>
+<th>服务名称</th>
+<th>从节点</th>
+<th>从节点</th>
+<th>主节点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>impala-catalog</td>
+<td></td>
+<td></td>
+<td>node03</td>
+</tr>
+<tr>
+<td>impala-state-store</td>
+<td></td>
+<td></td>
+<td>node03</td>
+</tr>
+<tr>
+<td>impala-server(impalad)</td>
+<td>node01</td>
+<td>node02</td>
+<td>node03</td>
+</tr>
+</tbody></table>
+<h3 id="主节点安装"><a href="#主节点安装" class="headerlink" title="主节点安装"></a>主节点安装</h3><p>在规划的主节点node03执行以下命令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y impala impala-server impala-state-store impala-catalog impala-shell</span><br></pre></td></tr></table></figure>
+
+<h3 id="从节点安装"><a href="#从节点安装" class="headerlink" title="从节点安装"></a>从节点安装</h3><p>在规划的从节点node01、node02执行以下命令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y impala-server</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改hadoop、hive配置"><a href="#修改hadoop、hive配置" class="headerlink" title="修改hadoop、hive配置"></a>修改hadoop、hive配置</h2><p>需要在3台机器整个集群上进行操作，都需要修改。hadoop、hive是否正常服务并且配置好，是决定impala是启动成功并使用的前提。</p>
+<h3 id="修改hive配置"><a href="#修改hive配置" class="headerlink" title="修改hive配置"></a>修改hive配置</h3><p>可在node03机器上进行配置，然后scp给其他2台机器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /<span class="built_in">export</span>/servers/hive/conf/hive-site.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>jdbc:mysql://node03:3306/hive?createDatabaseIfNotExist=true<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionDriverName<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionUserName<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>root<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionPassword<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.cli.print.current.db<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.cli.print.header<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="comment">&lt;!-- 绑定运行hiveServer2的主机host,默认localhost --&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.server2.thrift.bind.host<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node03<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="comment">&lt;!-- 指定hive metastore服务请求的uri地址 --&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.metastore.uris<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>thrift://node03:9083<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.metastore.client.socket.timeout<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>3600<span class="tag">&lt;/<span class="name">value</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将hive安装包分发到其他两台机器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers/</span><br><span class="line">scp -r hive/ node02:<span class="variable">$PWD</span></span><br><span class="line">scp -r hive/ node01:<span class="variable">$PWD</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="修改hadoop配置"><a href="#修改hadoop配置" class="headerlink" title="修改hadoop配置"></a>修改hadoop配置</h3><p>在三个节点下创建文件夹<code>hdfs-sockets</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/run/hdfs-sockets</span><br></pre></td></tr></table></figure>
+
+<p>修改所有节点的hdfs-site.xml添加以下配置，修改完之后重启hdfs集群生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /<span class="built_in">export</span>/servers/hadoop-2.6.0-cdh5.14.0/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.client.read.shortcircuit<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.domain.socket.path<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/var/run/hdfs-sockets/dn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.client.file-block-storage-locations.timeout.millis<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>10000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.hdfs-blocks-metadata.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>dfs.client.read.shortcircuit</code> 打开DFSClient本地读取数据的控制;</p>
+<p><code>dfs.domain.socket.path</code>是Datanode<code>和</code>DFSClient之间沟通的Socket的本地路径</p>
+<p>更新hadoop的配置文件，scp给其他机器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers/hadoop-2.6.0-cdh5.14.0/etc/hadoop/</span><br><span class="line">scp -r hdfs-site.xml node02:<span class="variable">$PWD</span></span><br><span class="line">scp -r hdfs-site.xml node01:<span class="variable">$PWD</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：root用户不需要下面操作，普通用户需要这一步操作。</p>
+<p>给这个文件夹赋予权限，如果用的普通用户hadoop,那就直接赋予普通用户的权限，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R hadoop:hadoop /var/run/hdfs-sockets/</span><br></pre></td></tr></table></figure>
+
+<h2 id="重启hadoop、hive"><a href="#重启hadoop、hive" class="headerlink" title="重启hadoop、hive"></a>重启hadoop、hive</h2><p>在node03上执行下述命令分别启动hive metastore服务和hadoop</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers/hive-1.1.0-cdh5.14.0/</span><br><span class="line">nohup bin/hive --service metastore &amp;</span><br><span class="line">nohup bin/hive --service hiveserver2 &amp;</span><br><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers/hadoop-2.6.0-cdh5.14.0/</span><br><span class="line">sbin/stop-dfs.sh</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="复制hadoop、hive配置文件"><a href="#复制hadoop、hive配置文件" class="headerlink" title="复制hadoop、hive配置文件"></a>复制hadoop、hive配置文件</h2><p>impala的配置目录为<code>/etc/impala/conf/</code>，这个路径下面需要把<code>core-site.xml</code>，<code>hdfs-site.xml</code>以及<code>hive-site.xml</code>。</p>
+<p>所有节点cd到<code>/etc/impala/conf/</code>目录下；然后执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp -r /<span class="built_in">export</span>/servers/hadoop-2.6.0-cdh5.14.0/etc/hadoop/core-site.xml .</span><br><span class="line">cp -r /<span class="built_in">export</span>/servers/hadoop-2.6.0-cdh5.14.0/etc/hadoop/hdfs-site.xml .</span><br><span class="line">cp -r /<span class="built_in">export</span>/servers/hive-1.1.0-cdh5.14.0/conf/hive-site.xml .</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改impala配置"><a href="#修改impala配置" class="headerlink" title="修改impala配置"></a>修改impala配置</h2><h3 id="修改impala默认配置"><a href="#修改impala默认配置" class="headerlink" title="修改impala默认配置"></a>修改impala默认配置</h3><p>所有节点更改impala默认配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/default/impala</span><br><span class="line">IMPALA_CATALOG_SERVICE_HOST=node03</span><br><span class="line">IMPALA_STATE_STORE_HOST=node03</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加mysql驱动"><a href="#添加mysql驱动" class="headerlink" title="添加mysql驱动"></a>添加mysql驱动</h3><p>通过配置<code>/etc/default/impala</code>中可以发现已经指定了mysql驱动位置名字。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/default/impala</span><br><span class="line">MYSQL_CONNECTOR_JAR=/user/share/java/mysql-connector-java.jar</span><br></pre></td></tr></table></figure>
+
+<p>使用软连接指向该路径即可（3台机器都需要执行）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /<span class="built_in">export</span>/servers/hive-1.1.0-cdh5.14.0/lib/mysql-connector-java-5.1.38.jar /usr/share/java/mysql-connector-java.jar</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改bigtop配置"><a href="#修改bigtop配置" class="headerlink" title="修改bigtop配置"></a>修改bigtop配置</h3><p>修改bigtop的java_home路径（3台机器）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/default/bigtop-utils</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/<span class="built_in">export</span>/servers/jdk1.8.0_141</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动、关闭impala服务"><a href="#启动、关闭impala服务" class="headerlink" title="启动、关闭impala服务"></a>启动、关闭impala服务</h3><p>主节点node03启动以下三个服务进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service impala-state-store start</span><br><span class="line">service impala-catalog start</span><br><span class="line">service impala-server start</span><br></pre></td></tr></table></figure>
+
+<p>从节点启动node01和node02启动impala-server</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service impala-sever start</span><br></pre></td></tr></table></figure>
+
+<p>在node03节点上查询进程是否存在</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep impala</span><br></pre></td></tr></table></figure>
+
+<p>启动之后所有关于impala的日志默认都在<code>/var/log/impala</code>；这也是解决问题的唯一查看方式。</p>
+<p>如果需要关闭impala服务，只需要把命令中的start改成stop即可。注意如果关闭之后进程依然驻留，可以采取以下方式删除。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br><span class="line">rm -rf /tmp/hsperfdata_impala/进程号</span><br></pre></td></tr></table></figure>
+
+<h3 id="impala-WEB-UI"><a href="#impala-WEB-UI" class="headerlink" title="impala WEB UI"></a>impala WEB UI</h3><p>访问impalad的管理界面： <a target="_blank" rel="noopener" href="http://node03:25000/">http://node03:25000</a></p>
+<p>访问statestored的管理界面：<a target="_blank" rel="noopener" href="http://node03:25010/">http://node03:25010</a></p>
+<h3 id="卸载impala"><a href="#卸载impala" class="headerlink" title="卸载impala"></a>卸载impala</h3><ol>
+<li><p>卸载yum安装的impala全家桶：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove -y impala hadoop bigtop avro hbase parquet sentry solr zookeeper</span><br></pre></td></tr></table></figure></li>
+<li><p>删除本地磁盘上跟impala相关的文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf $(find / -name <span class="string">&quot;*impala*&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>查询未卸载完毕的rpm包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep impala</span><br><span class="line"><span class="comment">## 卸载</span></span><br><span class="line">rpm -e impala-shell-2.11.0+cdh5.14.0+0-1.cdh5.14.0.p0.50.el6.x86_64 --nodeps</span><br></pre></td></tr></table></figure></li>
+<li><p>删除<code>cdh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /cloudera_data/</span><br><span class="line">rm -rf cdh/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Impala-shell命令参数"><a href="#Impala-shell命令参数" class="headerlink" title="Impala-shell命令参数"></a>Impala-shell命令参数</h1><h2 id="impala-shell外部命令"><a href="#impala-shell外部命令" class="headerlink" title="impala-shell外部命令"></a>impala-shell外部命令</h2><p>所谓的外部命令指的是不需要进入到impala-shell交互命令行当中即可执行的命令参数。impala-shell后面执行的时候可以带很多参数。你可以在启动impala-shell时设置，用于修改命令执行环境。</p>
+<p><code>impala-shell -h</code>：查看帮助手册；</p>
+<p>常用的几个命令：</p>
+<p><code>impala-shell -r</code>：刷新impala元数据，与建立连接后执行REFRESH语句效果相同;</p>
+<p><code>impala-shell -f 文件路径</code>：执行指的sql查询文件；</p>
+<p><code>impala-shell -i</code>：指定连接运行impalad守护进程的主机。默认端口时21000。</p>
+<p><code>impala-shell -o</code>：保存执行结果到文件当中去</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/wjqixige/tags/Impala/" rel="tag"># Impala</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/wjqixige/2019/12/23/Sqoop%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Sqoop学习笔记">
+                  <i class="fa fa-chevron-left"></i> Sqoop学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/wjqixige/2019/12/24/%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84Bash%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="你不得不知道的Bash知识点">
+                  你不得不知道的Bash知识点 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/wjqixige/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.wj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/wjqixige/js/utils.js"></script><script src="/wjqixige/js/motion.js"></script><script src="/wjqixige/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

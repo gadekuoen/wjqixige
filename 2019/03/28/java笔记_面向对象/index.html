@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/wjqixige/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/wjqixige/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/wjqixige/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/wjqixige/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/wjqixige/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;gadekuoen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;wjqixige&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;wjqixige&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="类是一种自定义的数据类型，可以使用类来定义变量，而所有使用类定义的变量统称为 引用变量；所以说，所有类是引用类型。在面向对象的程序设计过程中，类和对象是很重要的两个概念，类用于描述客观世界里某一类对象的共同特征，而对象则是类的具体存在，如：人类和人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java笔记_面向对象">
+<meta property="og:url" content="https://gadekuoen.github.io/wjqixige/2019/03/28/java%E7%AC%94%E8%AE%B0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="栖溪阁晓生">
+<meta property="og:description" content="类是一种自定义的数据类型，可以使用类来定义变量，而所有使用类定义的变量统称为 引用变量；所以说，所有类是引用类型。在面向对象的程序设计过程中，类和对象是很重要的两个概念，类用于描述客观世界里某一类对象的共同特征，而对象则是类的具体存在，如：人类和人">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-28T14:08:03.000Z">
+<meta property="article:modified_time" content="2019-04-04T16:19:48.781Z">
+<meta property="article:author" content="Mr.wj">
+<meta property="article:tag" content="javaSE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gadekuoen.github.io/wjqixige/2019/03/28/java%E7%AC%94%E8%AE%B0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;gadekuoen.github.io&#x2F;wjqixige&#x2F;2019&#x2F;03&#x2F;28&#x2F;java%E7%AC%94%E8%AE%B0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;03&#x2F;28&#x2F;java笔记_面向对象&#x2F;&quot;,&quot;title&quot;:&quot;Java笔记_面向对象&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Java笔记_面向对象 | 栖溪阁晓生</title><script src="/wjqixige/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/wjqixige/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/wjqixige/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">栖溪阁晓生</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人在线笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/wjqixige/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/wjqixige/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/wjqixige/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/wjqixige/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/wjqixige/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/wjqixige/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="nav-text">类和对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB"><span class="nav-text">定义类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-text">成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="nav-text">成员方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-text">构造函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-text">对象的产生与使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E3%80%81%E5%BC%95%E7%94%A8%E5%92%8C%E6%8C%87%E9%92%88"><span class="nav-text">对象、引用和指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84this%E5%BC%95%E7%94%A8"><span class="nav-text">对象的this引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#this%E5%8F%AF%E4%BB%A5%E5%BC%95%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%88%90%E5%91%98%E3%80%82"><span class="nav-text">this可以引用对象的实例成员。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%A2%E5%8F%82%E4%B8%8E%E6%88%90%E5%91%98%E5%90%8D%E5%AD%97%E9%87%8D%E5%90%8D%EF%BC%8C%E7%94%A8this%E6%9D%A5%E5%8C%BA%E5%88%86"><span class="nav-text">形参与成员名字重名，用this来区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-text">引用构造函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-text">成员变量和局部变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">成员变量和局部变量的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E8%97%8F%E5%92%8C%E5%B0%81%E8%A3%85"><span class="nav-text">隐藏和封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%81%E8%A3%85"><span class="nav-text">什么是封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E7%AC%A6"><span class="nav-text">访问控制符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#package%E3%80%81import%E5%92%8Cimport-static"><span class="nav-text">package、import和import static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E5%B8%B8%E7%94%A8%E7%9A%84%E5%8C%85"><span class="nav-text">java常用的包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="nav-text">类的继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F"><span class="nav-text">格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BB%A7%E6%89%BF"><span class="nav-text">为什么需要继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E7%B1%BB%E5%9E%8B"><span class="nav-text">继承类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">继承关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-%E4%B8%8E-this-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">super 与 this 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final"><span class="nav-text">final</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Override-Overload"><span class="nav-text">Override&#x2F;Overload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%80%81"><span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E5%AD%98%E5%9C%A8%E7%9A%84%E4%B8%89%E4%B8%AA%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-text">多态存在的三个必要条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E4%B8%AD%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E7%89%B9%E7%82%B9"><span class="nav-text">多态中成员访问特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">多态的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E4%B8%AD%E7%9A%84%E8%BD%AC%E5%9E%8B"><span class="nav-text">多态中的转型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9D%97"><span class="nav-text">初始化块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E6%88%90%E5%91%98"><span class="nav-text">类成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-text">特点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">静态变量和成员变量的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-text">final修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#final%E4%BF%AE%E9%A5%B0%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">final修饰基本类型变量和引用类型变量的区别：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-text">抽象类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-text">格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract%E4%B8%8D%E8%83%BD%E5%92%8C%E5%93%AA%E4%BA%9B%E5%85%B3%E9%94%AE%E5%AD%97%E5%85%B1%E5%AD%98"><span class="nav-text">abstract不能和哪些关键字共存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0-1"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-text">接口的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">接口的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E6%88%90%E5%91%98%E7%89%B9%E7%82%B9"><span class="nav-text">接口成员特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">接口与类的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="nav-text">抽象类和接口的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E4%B8%8E%E7%B1%BB%E3%80%81%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3%E3%80%81%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8E%A5%E5%8F%A3%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">类与类、类与接口、接口与接口之间的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">成员内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">局部内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">匿名内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">静态内部类</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/"><img class="site-author-image" itemprop="image" alt="Mr.wj" src="/wjqixige/uploads/logo.jpg"></a>
+  <p class="site-author-name" itemprop="name">Mr.wj</p>
+  <div class="site-description" itemprop="description">记录和分享我学习是记录的笔记和个人想法</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/wjqixige/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gadekuoen/wjqixige" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gadekuoen&#x2F;wjqixige" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wjqixige/wujiang569@126.com" title="E-Mail → wujiang569@126.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gadekuoen.github.io/wjqixige/2019/03/28/java%E7%AC%94%E8%AE%B0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/wjqixige/uploads/logo.jpg">
+      <meta itemprop="name" content="Mr.wj">
+      <meta itemprop="description" content="记录和分享我学习是记录的笔记和个人想法">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="栖溪阁晓生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java笔记_面向对象
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-28 22:08:03" itemprop="dateCreated datePublished" datetime="2019-03-28T22:08:03+08:00">2019-03-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2019-04-05 00:19:48" itemprop="dateModified" datetime="2019-04-05T00:19:48+08:00">2019-04-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/wjqixige/categories/javaSE/" itemprop="url" rel="index"><span itemprop="name">javaSE</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        
+
+<p>类是一种自定义的数据类型，可以使用类来定义变量，而所有使用类定义的变量统称为 引用变量；所以说，所有类是引用类型。在面向对象的程序设计过程中，类和对象是很重要的两个概念，类用于描述客观世界里某一类对象的共同特征，而对象则是类的具体存在，如：人类和人</p>
+<span id="more"></span>
+
+<h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h3><pre><code>[修饰符] class 类名 &#123;
+    成员变量(零到多个)... 
+    构造方法(零到多个)...
+    成员方法(零到多个)...
+&#125;
+</code></pre>
+<p><strong>修饰符</strong>：public、final、abstract，或省略</p>
+<p><strong>类名</strong>：一个或多个单词，每个单词首字母大写，其它字母小写，单词与单词之间没有分隔符</p>
+<p><strong>成员变量</strong>：定义该类的实例所包含的状态数据</p>
+<p><strong>成员方法</strong>：定义该类或该类的实例行为特征或功能实现</p>
+<p><strong>构造函数</strong>：用于构造该类的实例，通过new关键字来调用，返回该类的实例 （构造函数是类创建对象的根本途径，没有则无法创建实例，如果编写类时没有编写构造函数，系统默认添加一个无参构造）</p>
+<h4 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h4><pre><code>[修饰符] 类型 成员变量名 [=默认值];
+</code></pre>
+<p><strong>修饰符</strong>：可省略、【public、protected、private】（只能出现其一）、【static、final】（可以与前面的组合用）</p>
+<p><strong>类型</strong>：基本类型和引用类型</p>
+<p><strong>成员变量名</strong>：一个或多个单词，第一个单词首字母小写，之后的每个单词首字母大写，其余都小写，不要用分隔符</p>
+<p><strong>默认值</strong>：可选</p>
+<h4 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h4><pre><code>[修饰符] 方法返回值类型 方法名(形参列表)&#123;
+    // 零条到多条可执行语句组成的方法体
+&#125;
+</code></pre>
+<p><strong>修饰符</strong>：【public、protected、private】（只能出现其一）、【final、abstract】（只能出现其一）、static（可以与前面的组合用）</p>
+<p><em><strong>强调</strong></em>：static修饰的成员变量和方法称为类变量、类方法，属于类本身；不使用static修饰的成员变量和方法称为</p>
+<p>实例变量、实例方法，属于该类的单个实例；静态成员不能直接访问非静态成员。</p>
+<p><strong>方法返回值类型</strong>：基本类型和引用类型</p>
+<ol>
+<li><p>有返回值：方法体内必须有一个 return</p>
+</li>
+<li><p>无返回值：则返回值类型为 void</p>
+</li>
+</ol>
+<p><strong>方法名</strong>：与成员变量的命令方式相同，建议以英文动词开头</p>
+<p><strong>形参列表</strong>：用于定义该方法可以接受的参数，多个参数以英文逗号隔开</p>
+<p><strong>格式</strong>： 参数类型 形参名</p>
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><pre><code>[修饰符] 构造器名(形参列表)&#123;
+    // 由零条到多条可执行语句组成的构造器执行体
+&#125;
+</code></pre>
+<p><strong>修饰符</strong>：可省略、【public、protected、private】（只能出现其一）</p>
+<p><strong>构造器名</strong>：构造器名必须与类名相同</p>
+<p><strong>形参列表</strong>：和定义方法的形参列表的格式完全相同</p>
+<p><strong>实例</strong>：</p>
+<pre><code>class Circle &#123;
+    // 定义成员变量
+    double radius = 1;
+
+    // 定义构造函数
+    Circle()&#123;
+    &#125;
+    Circle(double newRadius)&#123;
+        radius = newRadius;
+    &#125;
+
+    // 定义成员方法
+    double getArea()&#123;
+        return radius * radius * Math.PI;
+    &#125;
+    double getPerimeter()&#123;
+        return 2 * radius * Math.PI;
+    &#125;
+    void setRadius(double newRadius)&#123;
+        radius = newRadius;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="对象的产生与使用"><a href="#对象的产生与使用" class="headerlink" title="对象的产生与使用"></a>对象的产生与使用</h3><p>通过关键字 new 来调用某个类的构造函数即可创建这个类的实例。</p>
+<p><strong>代码形式（如调用Circle类）</strong>：</p>
+<pre><code>Circle c = new Circle();
+</code></pre>
+<p><strong>对象作用</strong>：</p>
+<p>1、访问对象的实例变量；如： c.radius</p>
+<p>2、调用对象的方法;如： c.getArea();</p>
+<p><strong>Circle c = new Circle();在内存中做了哪些事情？</strong></p>
+<p>1）加载Circle.class文件进内存</p>
+<p>2）在栈空间为 c 开辟空间</p>
+<p>3）在堆内存为 Circle对象开辟空间</p>
+<p>4）对Circle的成员变量进行默认初始化</p>
+<p>5）对Circle的成员变量进行显示初始化</p>
+<p>6）通过构造方法对circle对象的成员变量赋值</p>
+<p>7）Circle对象初始化完毕，把对象地址赋值给c 变量</p>
+<h3 id="对象、引用和指针"><a href="#对象、引用和指针" class="headerlink" title="对象、引用和指针"></a>对象、引用和指针</h3><p><strong>解析</strong>：  Circle c = new Circle();</p>
+<p>new Circle() 创建了一个Circle对象，然后将该对象赋给c变量；因此该代码产生了一个对象和一个变量。</p>
+
+
+<p><strong>注</strong>：</p>
+<ol>
+<li>如果堆内存里的对象没有任何变量指向该对象，则程序无法访问该对象，该对象会被垃圾回收机制回收，释放该对象所占用内存。</li>
+<li>如果想通知垃圾回收机制回收某个对象，则可以给引用变量赋值为null</li>
+</ol>
+<h3 id="对象的this引用"><a href="#对象的this引用" class="headerlink" title="对象的this引用"></a>对象的this引用</h3><p>this关键字是指向调用对象本身的引用名（通俗讲：哪个对象调用this就代表谁）。</p>
+<p><strong>三种用法</strong>：</p>
+<h4 id="this可以引用对象的实例成员。"><a href="#this可以引用对象的实例成员。" class="headerlink" title="this可以引用对象的实例成员。"></a>this可以引用对象的实例成员。</h4><pre><code>class Circle &#123;
+    private double radius = 1;
+    省略...
+    public double getArea()&#123;
+        return this.radius * this.radius * Math.PI;
+    &#125;
+    public String toString()&#123;
+        return &quot;radius: &quot; + this.radius + &quot;area &quot; + this.getArea();
+    &#125;
+&#125;
+</code></pre>
+<p>等价于</p>
+<pre><code>class Circle &#123;
+    private double radius = 1;
+    省略...
+    public double getArea()&#123;
+        return radius * radius * Math.PI;
+    &#125;
+    public String toString()&#123;
+        return &quot;radius: &quot; + radius + &quot;area &quot; + getArea();
+    &#125;
+&#125;
+</code></pre>
+<h4 id="形参与成员名字重名，用this来区分"><a href="#形参与成员名字重名，用this来区分" class="headerlink" title="形参与成员名字重名，用this来区分"></a>形参与成员名字重名，用this来区分</h4><pre><code>class Person&#123;
+    private int age = 10;
+    public Person()&#123;
+        System.out.println(&quot;初始化年龄： &quot; + age);
+    &#125;
+    public int setAge(int age)&#123;
+        this.age = age;
+        return this.age;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="引用构造函数"><a href="#引用构造函数" class="headerlink" title="引用构造函数"></a>引用构造函数</h4><p>this(参数) ：调用本类中另一种形式的构造函数（应该为构造函数的第一条语句）。</p>
+<pre><code>public class Circle&#123;
+    private double radius;
+    public Circle(double radius)&#123;
+        this.radius = radius;  //this关键字用于引用所构建的对象的隐藏数据域radius
+    &#125;
+    public Circle()&#123;
+        this(1.0);  // this关键字用于调用另外一个构造方法
+    &#125;
+&#125;
+</code></pre>
+<h2 id="成员变量和局部变量"><a href="#成员变量和局部变量" class="headerlink" title="成员变量和局部变量"></a>成员变量和局部变量</h2><h3 id="成员变量和局部变量的区别"><a href="#成员变量和局部变量的区别" class="headerlink" title="成员变量和局部变量的区别"></a>成员变量和局部变量的区别</h3><p><strong>类中的位置不同</strong></p>
+<ol>
+<li>成员变量：类中方法外</li>
+<li>局部变量：方法定义中或方法声明上</li>
+</ol>
+<p><strong>内存中的位置不同</strong></p>
+<ol>
+<li>成员变量：堆中</li>
+<li>局部变量：栈中</li>
+</ol>
+<p><strong>生命周期不同</strong></p>
+<ol>
+<li>成员变量：随对象的创建而存在，随对象的消失而消失</li>
+<li>局部变量：随方法的调用而存在，随着方法的调用完毕而消失</li>
+</ol>
+<p><strong>初始化值不同</strong></p>
+<ol>
+<li>成员变量：有默认值</li>
+<li>局部变量：没有默认值，必须定义，赋值，然后才能使用</li>
+</ol>
+<h2 id="隐藏和封装"><a href="#隐藏和封装" class="headerlink" title="隐藏和封装"></a>隐藏和封装</h2><h3 id="什么是封装"><a href="#什么是封装" class="headerlink" title="什么是封装"></a>什么是封装</h3><p><strong>封装</strong>：指将对象状态信息隐藏在对象内部，不允许外部程序直接访问对象内部信息，而是通过该    类所提供的方法来时先对内部信息的操作和访问。</p>
+<p><strong>作用</strong>：</p>
+<ol>
+<li>隐藏类的实现细节</li>
+<li>通过预先定义的方法访问数据，限制对成员变量的不合理访问</li>
+<li>数据检查，完整性</li>
+<li>便于修改</li>
+</ol>
+<h3 id="访问控制符"><a href="#访问控制符" class="headerlink" title="访问控制符"></a>访问控制符</h3>
+
+<p><strong>详细介绍</strong>：</p>
+<ul>
+<li>private（当前类访问权限）: 成员只能在当前类的内部被访问。 </li>
+<li>default（包访问权限）: 成员或外部类可以被相同包下的其它类访问。</li>
+<li>protected（子类访问权限）: 即可以被同一个包中其他类访问，也可以被不同包中的子类访问。</li>
+<li>public（公共访问权限）: 成员或外部类可以被所有类访问。</li>
+</ul>
+
+
+<h3 id="package、import和import-static"><a href="#package、import和import-static" class="headerlink" title="package、import和import static"></a>package、import和import static</h3><p>package:文件夹</p>
+<ul>
+<li><strong>作用</strong>：对类进行分类管理，方便组织自己的代码，将自己的代码与别人提供的代码库分开管理。确保类名的唯一性。</li>
+<li><strong>定义格式</strong>： package 包名;</li>
+<li><strong>包名命令规则</strong>：全部小写。（建议将公司域名倒过来写。如：com.baidu）</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ol>
+<li>package语句必须是程序的第一条可执行的代码</li>
+<li>package语句在一个java文件中只能有一个</li>
+<li>如果没有package，默认表示无名包</li>
+</ol>
+<p>import:一个类可以使用所属包中的所有类，以及其它包中的共有类。</p>
+<p><strong>访问另一个包的共有类的两种方式</strong>：</p>
+<ol>
+<li><p>每个类名之前添加完整的包名：</p>
+<pre><code> java.time.LocalDate today = java.time.LocalDate.now();
+</code></pre>
+</li>
+<li><p>使用import语句导入一个特定的类或者整个包：</p>
+<pre><code> import java.util.*;
+ LocalDate today = LocalDate.now();
+</code></pre>
+</li>
+</ol>
+<p><strong>import static</strong>:<br>静态导入使用import static语句，分别用于导入指定类的单个静态成员变量、方法和全部静态成员变量、方法。</p>
+<p><strong>import 和 import static的作用</strong>：<br>使用import可以省略写包名；而使用import static则可以连类名都可省略</p>
+<h3 id="java常用的包"><a href="#java常用的包" class="headerlink" title="java常用的包"></a>java常用的包</h3><ul>
+<li><strong>java.lang</strong>：Java核心类。如String、Math、System等，无须用import导入，系统自动导入。</li>
+<li><strong>java.util</strong>：工具类/接口和集合框架类/接口，如Arrays和List、Set等。</li>
+<li><strong>java.net</strong>：网络编程相关的类/接口</li>
+<li><strong>java.io</strong>：输入/输出编程相关的类/接口</li>
+<li><strong>java.text</strong>：格式化相关的类</li>
+<li><strong>java.sql</strong>：JDBC数据库编程的相关类/接口</li>
+</ul>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p><strong>作用</strong>： 用于创建实例时执行初始化。</p>
+<p><strong>格式</strong>：</p>
+<ol>
+<li>方法名与类名相同</li>
+<li>没有返回值类型，连void都没有</li>
+<li>没有具体的返回值</li>
+</ol>
+<p><strong>注意事项</strong>：</p>
+<ol>
+<li>如果不提供构造方法，系统会给出默认构造方法</li>
+<li>如果提供了构造方法，系统讲不再提供</li>
+<li>构造方法也可以重载</li>
+</ol>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>子类继承父类的特征和行为，使得子类对象具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><pre><code>class 父类 &#123;
+&#125;
+class 子类 extends 父类&#123;
+&#125;
+</code></pre>
+<h3 id="为什么需要继承"><a href="#为什么需要继承" class="headerlink" title="为什么需要继承"></a>为什么需要继承</h3><p>没有继承的实例（代码重复，臃肿）</p>
+<p>企鹅类：</p>
+<pre><code>public class Penguin &#123;
+    private String name;
+    private int id;
+    
+    public Penguin(String name,int id)&#123;
+        this.name = name;
+        this.id = myid;
+    &#125;
+    public void eat()&#123;
+        System.out.println(name + &quot;在吃东西&quot;);
+    &#125;
+    public void sleep()&#123;
+        System.out.println(name + &quot;正在睡觉&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>老鼠类：</p>
+<pre><code>public class Mouse&#123;
+    private String name;
+    private int id;
+    
+    public Mouse(String name,int id)&#123;
+        this.name = name;
+        this.id = id;
+    &#125;
+    
+    public void eat()&#123;
+        System.out.println(name + &quot;在吃东西&quot;);
+    &#125;
+    public void sleep()&#123;
+        System.out.println(name + &quot;正在睡觉&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>有继承的实例 （简介、复用性好）</p>
+<p>公共类：</p>
+<pre><code>public class Animal&#123;
+    private String name;
+    private int id;
+    
+    public Penguin(String name,int id)&#123;
+        this.name = name;
+        this.id = myid;
+    &#125;
+    
+    public void eat()&#123;
+        System.out.println(name + &quot;在吃东西&quot;);
+    &#125;
+    public void sleep()&#123;
+        System.out.println(name + &quot;正在睡觉&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>企鹅类：</p>
+<pre><code>public class Penguin extends Animal &#123;
+    public Penguin(String name,int id)&#123;
+        super(name,id);
+    &#125;
+&#125;
+</code></pre>
+<p>老鼠类：</p>
+<pre><code>public class Mouse&#123;
+    public Mouse(String name,int id)&#123;
+        super(name,id);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="继承类型"><a href="#继承类型" class="headerlink" title="继承类型"></a>继承类型</h3>
+
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
+<li>子类拥有父类非private的属性、方法</li>
+<li>子类可以对父类进行扩展</li>
+<li>子类用自己的方式实现父类的方法 （重写）</li>
+<li>java只支持单继承，不支持多继承，但支持多层继承</li>
+<li>提高了类之间的耦合性，代码独立性差</li>
+</ol>
+<h3 id="继承关键字"><a href="#继承关键字" class="headerlink" title="继承关键字"></a>继承关键字</h3><p>extends 和 implements</p>
+<p>所有类都继承与 java.lang.Object</p>
+<p>如果类没有继承关键字，则默认继承Object祖先类</p>
+<p>示例：</p>
+<p><strong>extends关键字</strong></p>
+<pre><code>public class Animal&#123;
+    private String name;
+    private int id;
+
+    public Animal(String name, int id)&#123;
+        this.name = name;
+        this.id = id;
+    &#125;
+    
+    public void eat()&#123;&#125;
+    public void sleep()&#123;&#125;
+&#125;
+</code></pre>
+<p><strong>implements关键字</strong></p>
+<p>使用implements关键字可以变相的使java具有多继承的特性</p>
+<pre><code>public interface A&#123;
+    public void eat();
+    public void sleep();
+&#125;
+public interface B&#123;
+    public void show();
+&#125;
+public class C implements A,B&#123;
+&#125;
+</code></pre>
+<h3 id="super-与-this-关键字"><a href="#super-与-this-关键字" class="headerlink" title="super 与 this 关键字"></a>super 与 this 关键字</h3><ul>
+<li><strong>this</strong>：代表当前对象的引用，谁来调用我，我就代表谁</li>
+<li><strong>super</strong>：代表当前对象父类的引用</li>
+</ul>
+<p><strong>区别</strong>：</p>
+<ol>
+<li><strong>调用成员变量</strong><ul>
+<li>this.成员变量  调用本类的成员变量，也可以调用父类的成员变量</li>
+<li>super.成员变量  调用父类的成员变量</li>
+</ul>
+</li>
+<li><strong>调用构造方法</strong><ul>
+<li>this(…)  调用本类的构造方法</li>
+<li>super(…) 调用父类的构造方法</li>
+</ul>
+</li>
+<li><strong>调用成员方法</strong><ul>
+<li>this.成员方法   调用本类的成员方法，也可以调用父类的方法</li>
+<li>super.成员方法  调用父类的成员方法</li>
+</ul>
+</li>
+</ol>
+<p>继承中构造方法的注意事项：<br>super(…)和this(…)必须出现在构造方法的第一条语句上</p>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><p>最终的意思，可以修饰类、成员变量、成员方法</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>修饰类，类不能被继承</li>
+<li>修饰变量，变量就变成了常量，只能被赋值一次</li>
+<li>修饰方法，方法不能被重写</li>
+</ul>
+<h2 id="Override-Overload"><a href="#Override-Overload" class="headerlink" title="Override/Overload"></a>Override/Overload</h2><p><strong>重载（Overload）</strong>： 方法名相同，参数的数量不同或数量相同而类型和次序不同 （一个类的多态性表现）</p>
+<p><strong>重写（Override）</strong>: 子类具有与父类相同名字，参数个数和类型一样，返回值也一样的方法（父类与子类的一种多态性表现）</p>
+
+
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>多态是同一个行为具有多个不同表现形式或形态的能力。（<em><strong>通俗的讲，就是同一个事件发生在不同的对象上会产生不同的结果</strong></em>）</p>
+
+
+<h3 id="多态存在的三个必要条件"><a href="#多态存在的三个必要条件" class="headerlink" title="多态存在的三个必要条件"></a>多态存在的三个必要条件</h3><ol>
+<li>要有继承或者实现关系</li>
+<li>要有方法重写 （不是必须）</li>
+<li>要有父类引用指向子类对象，如：Parent p = new Child();</li>
+</ol>
+<p>示例：（成员变量、成员方法、静态方法、如果解决父类不能使用子类特有方法）</p>
+<pre><code>class Fu &#123;
+    public int num = 100;
+    
+    public void show() &#123;
+        System.out.println(&quot;show Fu&quot;);
+    &#125;
+    
+    public static void function() &#123;
+        System.out.println(&quot;function Fu&quot;);
+    &#125;
+&#125;
+
+class Zi extends Fu &#123;
+    public int num = 1000;
+    public int num2 = 200;
+
+    public void show() &#123;
+        System.out.println(&quot;show Zi&quot;);
+    &#125;
+    
+    public void method() &#123;
+        System.out.println(&quot;method zi&quot;);
+    &#125;
+    
+    public static void function() &#123;
+        System.out.println(&quot;function Zi&quot;);
+    &#125;
+&#125;
+
+
+class DuoTaiDemo &#123;
+    public static void main(String[] args) &#123;
+        
+        Fu f = new Zi();
+        System.out.println(f.num);   //100
+        //找不到符号
+        //System.out.println(f.num2);
+        
+        f.show();  // show Zi
+        //找不到符号
+        //f.method();
+        f.function();    //function Fu
+    &#125;
+&#125;
+</code></pre>
+<h3 id="多态中成员访问特点"><a href="#多态中成员访问特点" class="headerlink" title="多态中成员访问特点"></a>多态中成员访问特点</h3><ol>
+<li><p>成员变量</p>
+<p> 编译看左边（父类），运行看左边（父类）</p>
+</li>
+<li><p>成员方法</p>
+<p> 编译看左边（父类），运行看右边（子类）</p>
+</li>
+<li><p>静态方法</p>
+<p> 编译看左边（父类），运行看左边（父类）</p>
+</li>
+</ol>
+<h3 id="多态的优缺点"><a href="#多态的优缺点" class="headerlink" title="多态的优缺点"></a>多态的优缺点</h3><p><strong>好处</strong>：</p>
+<ul>
+<li>提高了程序的维护性（有继承保证）</li>
+<li>提高了程序的扩展性（由多态保证）</li>
+</ul>
+<p><strong>弊端</strong>：</p>
+<ul>
+<li>不能访问子类特有功能</li>
+</ul>
+<h3 id="多态中的转型"><a href="#多态中的转型" class="headerlink" title="多态中的转型"></a>多态中的转型</h3><p><strong>向上转型</strong>：</p>
+<ul>
+<li>由子到父</li>
+<li>父类引用指向子类对象</li>
+</ul>
+<p><strong>向下转型</strong>：</p>
+<ul>
+<li>由父到子</li>
+<li>父类引用转为子类对象</li>
+</ul>
+<h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h2><p>在java中，使用{}括起来的代码被称为代码块，根据其位置和声明的不同，可以分为局部代码块，构造代码块，静态代码块，同步代码块（多线程）</p>
+<ol>
+<li><p><strong>局部代码块</strong></p>
+<p> 在方法中出现，限定变量生命周期，及早释放，提高内存利用率</p>
+</li>
+<li><p><strong>构造代码块</strong></p>
+<p> 在类中方法外出现，多个构造方法中相同的代码存放到一起，每次调用构造都执行，并且在构造方法前执行。</p>
+</li>
+<li><p><strong>静态代码块</strong></p>
+<p> 在类中方法外出现，并加上static修饰，用于给类进行初始化，在加载的时候就执行，并且执行一次</p>
+</li>
+</ol>
+<h2 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h2><p>static关键字修饰的成员就是类成员，可以修饰成员变量、方法、初始化块、内部类；类成员属于整个类，而不属于单个对象。</p>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ol>
+<li>随着类的加载而加载</li>
+<li>优先于对象存在</li>
+<li>被类的所有对象共享</li>
+<li>可以通过类名调用</li>
+</ol>
+<p><strong>注意</strong>：如果有个成员被所有对象所共享，则它应该被定义成静态的</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>在静态方法中没有this关键字<ul>
+<li>静态是随着类的加载而加载的，this是随着对象的创建而存在的</li>
+<li>静态比对象先存在</li>
+</ul>
+</li>
+<li>静态方法只能访问静态的成员变量和静态的成员方法</li>
+</ol>
+<h3 id="静态变量和成员变量的区别"><a href="#静态变量和成员变量的区别" class="headerlink" title="静态变量和成员变量的区别"></a>静态变量和成员变量的区别</h3><p>静态变量也叫类变量，成员变量也叫对象变量</p>
+<ol>
+<li><strong>所属不同</strong><ul>
+<li>静态变量属于类，成员变量属于对象</li>
+</ul>
+</li>
+<li><strong>内存中位置不同</strong><ul>
+<li>静态变量存储于方法区的静态区，成员变量存储于堆内存中</li>
+</ul>
+</li>
+<li><strong>内存出现时间不同</strong><ul>
+<li>静态变量随着类的加载而加载，随着类的消失而消失</li>
+<li>成员变量随着对象的创建而存在，随着对象的消失而消失</li>
+</ul>
+</li>
+<li><strong>调用不同</strong><ul>
+<li>静态变量可以通过类名调用，也可以通过对象调用</li>
+<li>成员变量只能通过对象名调用</li>
+</ul>
+</li>
+</ol>
+<h2 id="final修饰符"><a href="#final修饰符" class="headerlink" title="final修饰符"></a>final修饰符</h2><p>final关键字是最终的意思，可以修饰类、成员变量、成员方法。其中：</p>
+<ul>
+<li><strong>修饰类</strong>：类不能被继承</li>
+<li><strong>修饰变量</strong>：变量就变成了常量，只能被赋值一次</li>
+<li><strong>修饰方法</strong>：方法不能被重写</li>
+</ul>
+<h3 id="final修饰基本类型变量和引用类型变量的区别："><a href="#final修饰基本类型变量和引用类型变量的区别：" class="headerlink" title="final修饰基本类型变量和引用类型变量的区别："></a>final修饰基本类型变量和引用类型变量的区别：</h3><p><strong>基本类型</strong>：基本类型的值不能发生改变。</p>
+<pre><code>int x = 10;
+x = 100;
+System.out.println(x);
+final int y = 10;
+y = 100;  //无法为最终变量y分配值
+System.out.println(y);  // 报错：Exception in thread &quot;main&quot; java.lang.Error: Unresolved compilation problem: The final local variable y cannot be assigned.
+</code></pre>
+<p><strong>引用类型</strong>：引用类型的地址值不能发生改变，但是，该对象的堆内存的值是可以改变的。</p>
+<pre><code>//局部变量是引用数据类型
+Student s = new Student();
+System.out.println(s.age);
+s.age = 100;
+System.out.println(s.age);
+System.out.println(&quot;--------------&quot;);
+        
+final Student ss = new Student();
+System.out.println(ss.age);
+ss.age = 100;
+System.out.println(ss.age);
+    
+//重新分配内存空间
+//无法为最终变量ss分配值
+ss = new Student();
+</code></pre>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p>所有对象都是通过类来描绘的，如果一个类中没有包含足够的信息来描绘一个具体的对象，就把这种了类称为抽象类。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>抽象类和抽象方法必须用abstract关键字修饰</li>
+<li>不能被实例化，只有抽象类的非抽象子类可以创建对象</li>
+<li>抽象类不一定有抽象方法，但有抽象方法的类必定是抽象类</li>
+<li>构造方法、类方法不能声明为抽象方法</li>
+<li>抽象类的子类必须给出抽象类中的抽象方法的具体实现，除非该子类也是抽象类</li>
+</ol>
+<h3 id="格式："><a href="#格式：" class="headerlink" title="格式："></a>格式：</h3><pre><code>abstract class 类名 &#123;&#125;
+public abstract void 方法名();
+</code></pre>
+<h3 id="abstract不能和哪些关键字共存"><a href="#abstract不能和哪些关键字共存" class="headerlink" title="abstract不能和哪些关键字共存"></a>abstract不能和哪些关键字共存</h3><ul>
+<li>private   冲突</li>
+<li>final   冲突</li>
+<li>static  无意义</li>
+</ul>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>接口（Interface）是一个抽象类型，是抽象方法的集合，接口通常以interface来声明。实现类通过继承接口的方式，从而来继承接口的抽象方法。</p>
+<h3 id="接口的声明"><a href="#接口的声明" class="headerlink" title="接口的声明"></a>接口的声明</h3><pre><code>[修饰符] interface 接口名称 [extends 其他的接口名]&#123;
+    // 生命变量
+    // 抽象方法
+&#125;
+</code></pre>
+<p>示例：</p>
+<pre><code>interface Animal&#123;
+    public void eat();
+    public void sleep();
+&#125;
+</code></pre>
+<h3 id="接口的使用"><a href="#接口的使用" class="headerlink" title="接口的使用"></a>接口的使用</h3><pre><code>[修饰符] class 类名 extends 父类 implements 接口1, 接口2, ...&#123;
+    //类体部分
+&#125;
+</code></pre>
+<p>示例：</p>
+<pre><code>public class Cat implements Animal&#123;
+    public void eat()&#123;
+        System.out.println(&quot;cat eats&quot;);
+    &#125;
+    public void travel()&#123;
+        System.out.println(&quot;cat sleep&quot;);
+    &#125;
+    public int noOfLegs()&#123;
+        return 0;
+    &#125;
+    public static void main(String[] args)&#123;
+        Cat c = new Cat();
+        c.eat();
+        c.sleep();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="接口成员特点"><a href="#接口成员特点" class="headerlink" title="接口成员特点"></a>接口成员特点</h3><ol>
+<li><p>成员变量</p>
+<p> 只能是常量<br> 默认修饰符 public static final  （只能是public，private会报编译错误）</p>
+</li>
+<li><p>构造方法</p>
+<p> 没有，接口主要是扩展功能的，没有具体存在</p>
+</li>
+<li><p>成员方法</p>
+<p> 只能是抽象方法<br> 默认修饰符 public static  （只能是它，其他的会报错）</p>
+</li>
+</ol>
+<h3 id="接口与类的区别"><a href="#接口与类的区别" class="headerlink" title="接口与类的区别"></a>接口与类的区别</h3><ol>
+<li>接口不能实例化对象</li>
+<li>没有构造方法</li>
+<li>所有的方法必须是抽象方法</li>
+<li>支持多继承</li>
+</ol>
+<h3 id="抽象类和接口的区别："><a href="#抽象类和接口的区别：" class="headerlink" title="抽象类和接口的区别："></a>抽象类和接口的区别：</h3><pre><code>抽象类：
+    成员变量：可以变量，也可以常量
+    构造方法：有
+    成员方法：可以抽象，也可以非抽象
+接口：
+    成员变量：只可以常量
+    成员方法：只可以抽象
+    
+</code></pre>
+<h3 id="类与类、类与接口、接口与接口之间的关系"><a href="#类与类、类与接口、接口与接口之间的关系" class="headerlink" title="类与类、类与接口、接口与接口之间的关系"></a>类与类、类与接口、接口与接口之间的关系</h3><pre><code>类与类
+    继承，单继承
+类与接口
+    实现，单实现，多实现
+接口与接口
+    继承，单继承，多继承
+    
+</code></pre>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>将一个类定义在另一个类里面或者一个方法里面，这样的类称为内部类。广泛意义上的内部类分为以下四种：</p>
+<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>最普通的内部类，定义在位于另一个类的内部，形式如下：</p>
+<pre><code>class Circle&#123;
+    double radius = 0;
+    
+    public Circle(double radius) &#123;
+        this.radius = radius;
+    &#125;
+    
+    class Draw &#123;
+        public void drawShape()&#123;
+            System.out.println(&quot;drawshape&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>成员内部类可以无条件访问外部类的所有成员属性和成员方法（包括private成员和静态成员）。</p>
+<pre><code>class Circle &#123;
+    private double radius = 0;
+    public static int count = 1;
+    public Circle(double radius) &#123;
+        this.radius = radius;
+    &#125;
+    
+    class Draw &#123;
+        public void drawShape()&#123;
+            System.out.println(radius);  //外部类的private成员
+            System.out.println(count);  // 外部类的静态成员
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>注意</strong>：当成员内部类拥有和外部类同名的成员变量或者方法时，会发生隐藏现象，即默认情况下访问的是成员内部类的成员。如果要访问外部类的同名成员，访问形式如下：</p>
+<ul>
+<li>外部类.this.成员变量</li>
+<li>外部类.this.成员方法</li>
+</ul>
+<p>内部类可以无条件访问外部类的成员，而外部类想访问成员内部类则必须先建一个内部类对象：</p>
+<pre><code>class Circle &#123;
+    private double radius = 0;
+    
+    public Circle(double radius) &#123;
+        this.radius = radius;
+        getDrawInstance().drawShape();  //必须先创建成员内部类的对象，再进行访问
+    &#125;
+    
+    private Draw getDrawInstance() &#123;
+        return new Drwa();
+    &#125;
+    
+    class Draw &#123;  // 内部类
+        public void drawShape()&#123;
+            System.out.println(&quot;radius&quot;);  // 外部类的private成员
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>成员内部类是依附外部类而存在的，要创建成员内部类对象，前提是必须存在一个外部类的对象。</p>
+<pre><code>public class Test &#123;
+    public static void main(String[] args)&#123;
+        //第一种方式
+        Outrer outter = new Outer();
+        Outter.Inner inner = outter.new Inner();  //  必须通过Outter对象来创建
+        
+        //第二种方式
+        Outter.Inner inner1 = outter.getInnerInstance();
+    &#125;
+&#125;
+
+class Outter &#123;
+    private Inner inner = null;
+        public Outter()&#123;
+    &#125;
+    
+    public Inner getInnerInstance()&#123;
+        if(inner == null)&#123;
+            inner = new Inner();
+        &#125;
+        return inner;
+    &#125;
+    class Inner&#123;
+        public Inner()&#123;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>内部类可以拥有 private、protected、public 访问权限及包访问权限。由于成员内部类看起来像是外部类的一个成员，所以可以像类的成员一样拥有多种权限修饰。</p>
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>定义在一个方法或者一个作用域里面的类，和成员内部类的区别在于局部内部类的范围内仅限于方法内或者该作用域内。</p>
+<pre><code>class People &#123;
+    public People()&#123;
+    &#125;
+&#125;
+    class Man &#123;
+        public Man()&#123;
+    &#125;
+    public People getWoman()&#123;
+        class Woman extends People &#123;
+            int age = 0;
+        &#125;
+        return new Woman();
+    &#125;
+&#125;
+</code></pre>
+<p>注意：局部内部类和方法里面的一个局部变量一样，不能有public、protected、private以及static修饰符。</p>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>适合创建只需要一次使用的类。创建匿名内部类时会立即创建一个该类的实例，这个类定义立即消失，匿名内部类不能重复使用。</p>
+<p><strong>定义格式</strong>：</p>
+<pre><code>new 实现接口() | 父类构造器（实参列表）&#123;
+    // 匿名内部类的类体部分
+&#125;
+</code></pre>
+<p>实例：</p>
+<pre><code>public interface Person &#123;
+    public void run();
+&#125;
+
+public class Test &#123;
+    public static void main(String[] args)&#123;
+        Person p = new Person() &#123;
+            public void run()&#123;
+                System.out.println(&quot;匿名内部类实现&quot;);
+            &#125;
+        &#125;
+        p.run();
+    &#125;
+&#125;
+</code></pre>
+<p><strong>使用规则</strong>：</p>
+<ol>
+<li>不能有构造方法，但是如果这个匿名内部类继承了一个只含有带参数构造方法的父类，在创建它的对象的时候，在括号中必须带上这些参数；</li>
+<li>匿名内部类不可以定义任何静态成员和方法；</li>
+<li>匿名内部类不可以被public、protected、private、static修饰；</li>
+<li>只能创建匿名内部类的一个实例</li>
+</ol>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>定义在另一个类中且多加了一个static关键字的类。静态内部类不需要依赖外部类，且不能使用外部类的非static成员变量或方法（<em><strong>因为在没有外部类的对象的情况下，可以创建静态内部类的对象，如果允许访问外部类的非static成员就会产生矛盾，因为外部类的非static成员必须依附于具体的对象。</strong></em>）</p>
+<pre><code>public class Test &#123;
+    public static void main(String[] args)&#123;
+        Outter.Inner inner = new Outter.Inner();
+    &#125;
+&#125;
+
+class Outter &#123;
+    int a = 10;
+    static int b = 5;
+    public Outter() &#123;
+    &#125;
+    
+    static class Inner &#123;
+        public Inner()&#123;
+            System.out.println(a);  // 报错:无法从静态上下文中引用非静态变量a
+            System.out.println(b);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/wjqixige/tags/javaSE/" rel="tag"># javaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/wjqixige/2019/03/23/HTML5%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/" rel="prev" title="HTML5知识总结，看这篇就够了">
+                  <i class="fa fa-chevron-left"></i> HTML5知识总结，看这篇就够了
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/wjqixige/2019/03/30/%E6%B5%85%E8%B0%88%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF/" rel="next" title="浅谈大数据技术">
+                  浅谈大数据技术 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/wjqixige/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.wj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/wjqixige/js/utils.js"></script><script src="/wjqixige/js/motion.js"></script><script src="/wjqixige/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/wjqixige/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/wjqixige/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/wjqixige/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/wjqixige/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/wjqixige/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;gadekuoen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;wjqixige&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;wjqixige&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="我的集群有三台，此文档选择第三台安装。 Apache下载地址：http:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;hive&#x2F;hive-2.1.1&#x2F;apache-hive-2.1.1-bin.tar.gz 网盘CDH： 链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1VItITawBpgZ0kr_PLDSNSA     提取码：imwm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive安装方法">
+<meta property="og:url" content="https://gadekuoen.github.io/wjqixige/2019/12/15/hive%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="栖溪阁晓生">
+<meta property="og:description" content="我的集群有三台，此文档选择第三台安装。 Apache下载地址：http:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;hive&#x2F;hive-2.1.1&#x2F;apache-hive-2.1.1-bin.tar.gz 网盘CDH： 链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1VItITawBpgZ0kr_PLDSNSA     提取码：imwm">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-15T02:51:39.000Z">
+<meta property="article:modified_time" content="2019-12-15T03:24:04.626Z">
+<meta property="article:author" content="Mr.wj">
+<meta property="article:tag" content="hive">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gadekuoen.github.io/wjqixige/2019/12/15/hive%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;gadekuoen.github.io&#x2F;wjqixige&#x2F;2019&#x2F;12&#x2F;15&#x2F;hive%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;12&#x2F;15&#x2F;hive安装方法&#x2F;&quot;,&quot;title&quot;:&quot;hive安装方法&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>hive安装方法 | 栖溪阁晓生</title><script src="/wjqixige/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/wjqixige/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/wjqixige/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">栖溪阁晓生</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人在线笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/wjqixige/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/wjqixige/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/wjqixige/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/wjqixige/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/wjqixige/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/wjqixige/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E5%B9%B6%E8%A7%A3%E5%8E%8B%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-text">上传并解压安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="nav-text">安装MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8rpm%E5%8C%85%E5%AE%89%E8%A3%85mysql"><span class="nav-text">方式一：使用rpm包安装mysql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8yum%E6%BA%90%E5%AE%89%E8%A3%85mysql%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-text">方式二：使用yum源安装mysql（推荐）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9hive%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">修改hive的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0mysql%E8%BF%9E%E6%8E%A5%E9%A9%B1%E5%8A%A8%E5%8C%85%E5%88%B0hive%E7%9A%84lib%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="nav-text">添加mysql连接驱动包到hive的lib目录下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEHive%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">配置Hive的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive%E7%9A%84%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F"><span class="nav-text">Hive的交互方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9Abin-hive"><span class="nav-text">方式一：bin&#x2F;hive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8sql%E8%AF%AD%E5%8F%A5%E6%88%96%E8%80%85sql%E8%84%9A%E6%9C%AC%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92"><span class="nav-text">方式二：使用sql语句或者sql脚本进行交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hive-JDBC%E6%9C%8D%E5%8A%A1"><span class="nav-text">Hive JDBC服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8hiveserver2%E6%9C%8D%E5%8A%A1"><span class="nav-text">启动hiveserver2服务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#beeline%E8%BF%9E%E6%8E%A5hiveserver2"><span class="nav-text">beeline连接hiveserver2</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/"><img class="site-author-image" itemprop="image" alt="Mr.wj" src="/wjqixige/uploads/logo.jpg"></a>
+  <p class="site-author-name" itemprop="name">Mr.wj</p>
+  <div class="site-description" itemprop="description">记录和分享我学习是记录的笔记和个人想法</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/wjqixige/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gadekuoen/wjqixige" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gadekuoen&#x2F;wjqixige" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wjqixige/wujiang569@126.com" title="E-Mail → wujiang569@126.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gadekuoen.github.io/wjqixige/2019/12/15/hive%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/wjqixige/uploads/logo.jpg">
+      <meta itemprop="name" content="Mr.wj">
+      <meta itemprop="description" content="记录和分享我学习是记录的笔记和个人想法">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="栖溪阁晓生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hive安装方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-12-15 10:51:39 / 修改时间：11:24:04" itemprop="dateCreated datePublished" datetime="2019-12-15T10:51:39+08:00">2019-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/wjqixige/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>我的集群有三台，此文档选择第三台安装。</p>
+<p>Apache下载地址：<a target="_blank" rel="noopener" href="http://archive.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz">http://archive.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz</a></p>
+<p>网盘CDH： 链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1VItITawBpgZ0kr_PLDSNSA">https://pan.baidu.com/s/1VItITawBpgZ0kr_PLDSNSA</a>     提取码：imwm </p>
+<span id="more"></span>
+
+<h3 id="上传并解压安装包"><a href="#上传并解压安装包" class="headerlink" title="上传并解压安装包"></a>上传并解压安装包</h3><p>将hive安装包上传到node03服务器的/export/softwares路径下，然后进行解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/softwares/</span><br><span class="line">tar -zxvf hive-1.1.0-cdh5.14.0.tar.gz -C ../servers/</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><h4 id="方式一：使用rpm包安装mysql"><a href="#方式一：使用rpm包安装mysql" class="headerlink" title="方式一：使用rpm包安装mysql"></a>方式一：使用rpm包安装mysql</h4><ol>
+<li><p>查看系统自带的mysql的rpm包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -qa | grep mysql</span><br><span class="line">$ rpm -e mysql-libs-5.1.73-8.el6_8.x86_64 --nodeps  <span class="comment">## 删除自带包</span></span><br></pre></td></tr></table></figure></li>
+<li><p>安装mysql的rpm包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -ivh *.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>启动mysql的服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ service mysqld start</span><br></pre></td></tr></table></figure></li>
+<li><p>查看mysql初始化密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ more /root/.mysql_secret</span><br></pre></td></tr></table></figure></li>
+<li><p>使用随机密码登录mysql并更新密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mysql -uroot -p</span><br><span class="line">mysql&gt; SET PASSWORD = PASSWORD(<span class="string">&#x27;123456&#x27;</span>); </span><br></pre></td></tr></table></figure></li>
+<li><p>开启mysql远程连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;123456&#39; with grant option;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置mysql的开机启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ chkconfig --add mysqld</span><br><span class="line">$ chkconfig mysqld on</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="方式二：使用yum源安装mysql（推荐）"><a href="#方式二：使用yum源安装mysql（推荐）" class="headerlink" title="方式二：使用yum源安装mysql（推荐）"></a>方式二：使用yum源安装mysql（推荐）</h4><ol>
+<li><p>在线安装mysql相关的软件包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install mysql mysql-server mysql-devel</span><br></pre></td></tr></table></figure></li>
+<li><p>启动mysql服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /etc/init.d/mysqld start</span><br></pre></td></tr></table></figure></li>
+<li><p>通过mysql安装自带脚本进行设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/bin/mysql_secure_installation</span><br></pre></td></tr></table></figure></li>
+<li><p>进入mysql的客户端然后进行授权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;123456&#39; with grant option;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="修改hive的配置文件"><a href="#修改hive的配置文件" class="headerlink" title="修改hive的配置文件"></a>修改hive的配置文件</h3><ol>
+<li><p>修改hive-env.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /hive-1.1.0-cdh5.14.0/conf</span><br><span class="line">$ cp hive-env.sh.template hive-env.sh</span><br><span class="line">$ vim hive-env.sh</span><br></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set HADOOP_HOME to point to a specific hadoop install directory</span></span><br><span class="line">HADOOP_HOME=/<span class="built_in">export</span>/servers/hadoop-2.6.0-cdh5.14.0</span><br><span class="line"><span class="comment"># Hive Configuration Directory can be controlled by:</span></span><br><span class="line"><span class="built_in">export</span> HIVE_CONF_DIR=/<span class="built_in">export</span>/servers/hive-1.1.0-cdh5.14.0/conf</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>修改hive-site.xml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /hive-1.1.0-cdh5.14.0/conf</span><br><span class="line">$ vim hive-site.xml</span><br></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">     	<span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">     	<span class="tag">&lt;<span class="name">value</span>&gt;</span>jdbc:mysql://node03.hadoop.com:3306/hive?createDatabaseIfNotExist=true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionDriverName<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionUserName<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>root<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionPassword<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.cli.print.current.db<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.cli.print.header<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.server2.thrift.bind.host<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>node03.hadoop.com<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        &lt;property&gt;</span></span><br><span class="line"><span class="comment">                &lt;name&gt;hive.metastore.uris&lt;/name&gt;</span></span><br><span class="line"><span class="comment">                &lt;value&gt;thrift://node03.hadoop.com:9083&lt;/value&gt;</span></span><br><span class="line"><span class="comment">        &lt;/property&gt;</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加mysql连接驱动包到hive的lib目录下"><a href="#添加mysql连接驱动包到hive的lib目录下" class="headerlink" title="添加mysql连接驱动包到hive的lib目录下"></a>添加mysql连接驱动包到hive的lib目录下</h3><p>hive使用mysql作为元数据存储，必然需要连接mysql数据库，所以我们添加一个mysql的连接驱动包到hive的安装目录下，然后就可以准备启动hive了。</p>
+<p>将mysql-connector-java-5.1.38.jar这个jar包上传到<code>export/servers/hive-1.1.0-cdh5.14.0/lib</code>目录下即可。</p>
+<h3 id="配置Hive的环境变量"><a href="#配置Hive的环境变量" class="headerlink" title="配置Hive的环境变量"></a>配置Hive的环境变量</h3><p>nodee03服务器执行以下命令配置hive的环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">export</span> <span class="string">HIVE_HOME=/export/servers/hive-1.1.0-cdh5.14.0</span></span><br><span class="line"><span class="attr">export</span> <span class="string">PATH=:$HIVE_HOME/bin:$PATH</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Hive的交互方式"><a href="#Hive的交互方式" class="headerlink" title="Hive的交互方式"></a>Hive的交互方式</h3><h4 id="方式一：bin-hive"><a href="#方式一：bin-hive" class="headerlink" title="方式一：bin/hive"></a>方式一：<code>bin/hive</code></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers/hive-1.1.0-cdh5.14.0/</span><br><span class="line">bin/hive</span><br></pre></td></tr></table></figure>
+
+<p>查看所有数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> databases;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database myhive;</span><br></pre></td></tr></table></figure>
+
+<p>使用该数据库并创建数据库表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use myhive;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test(id <span class="type">int</span>,name string);</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>完成上述操作之后，确认mysql里面出来一个数据库hive</strong></em></p>
+<h4 id="方式二：使用sql语句或者sql脚本进行交互"><a href="#方式二：使用sql语句或者sql脚本进行交互" class="headerlink" title="方式二：使用sql语句或者sql脚本进行交互"></a>方式二：<code>使用sql语句或者sql脚本进行交互</code></h4><p>不进入hive的客户端直接执行hive的sql语句</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers/hive-1.1.0-cdh5.14.0/</span><br><span class="line">bin/hive -e <span class="string">&quot;create database if not exists mytest;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者我们可以将我们的sql语句写成一个sql脚本然后执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /<span class="built_in">export</span>/servers</span><br><span class="line">vim hive.sql</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database if <span class="keyword">not</span> <span class="keyword">exists</span> mytest;</span><br><span class="line">use mytest;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> stu(id <span class="type">int</span>,name string);</span><br></pre></td></tr></table></figure>
+
+<p>通过hive -f 来执行sql脚本</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin<span class="operator">/</span>hive <span class="operator">-</span>f <span class="operator">/</span>export<span class="operator">/</span>servers<span class="operator">/</span>hive.sql</span><br></pre></td></tr></table></figure>
+
+<h4 id="Hive-JDBC服务"><a href="#Hive-JDBC服务" class="headerlink" title="Hive JDBC服务"></a>Hive JDBC服务</h4><h5 id="启动hiveserver2服务"><a href="#启动hiveserver2服务" class="headerlink" title="启动hiveserver2服务"></a>启动hiveserver2服务</h5><p><strong>前台启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /hive-1.1.0-cdh5.14.0/</span><br><span class="line">$ bin/hive --service hiveserver2</span><br></pre></td></tr></table></figure>
+
+<p><strong>后台启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /hive-1.1.0-cdh5.14.0/</span><br><span class="line">$ nohup bin/hive --service hiveserver2 &amp;</span><br></pre></td></tr></table></figure>
+
+<h5 id="beeline连接hiveserver2"><a href="#beeline连接hiveserver2" class="headerlink" title="beeline连接hiveserver2"></a>beeline连接hiveserver2</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bin/beeline</span><br><span class="line">beeline&gt; !connect jdbc:hive2://node03.hadoop.com:10000</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>注意：如果使用beeline方式连接hiveserver2，一定要保证hive在mysql当中的元数据库已经创建成功，不然就会拒绝连接。</strong></em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/wjqixige/tags/hive/" rel="tag"># hive</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/wjqixige/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="MapReduce学习笔记">
+                  <i class="fa fa-chevron-left"></i> MapReduce学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/wjqixige/2019/12/15/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="next" title="数据仓库的基本概念">
+                  数据仓库的基本概念 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/wjqixige/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.wj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/wjqixige/js/utils.js"></script><script src="/wjqixige/js/motion.js"></script><script src="/wjqixige/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
