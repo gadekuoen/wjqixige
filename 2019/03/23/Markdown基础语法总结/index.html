@@ -17,9 +17,8 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.wjqixige.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.wjqixige.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
 <meta name="description" content="一、概述Markdown就是一个把文本转换称html格式的一个工具，网上有好多类似的博客，看起来眼花缭乱，我在阅读别人博客的同时自己总结一份，以便之后查看。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown基础语法总结">
@@ -52,7 +51,7 @@
   </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
 
   <main class="main">
@@ -284,7 +283,7 @@
 &lt;/table&gt;
 </code></pre>
 <h3 id="5、链接"><a href="#5、链接" class="headerlink" title="5、链接"></a>5、链接</h3><p>####5.1 内链式<br>    <a target="_blank" rel="noopener" href="http://www.baidu.com/">百度1</a>{:target=”_blank”}<br>    其中：    [] 链接文字<br>          () 链接地址<br>          {} 跳转方式（注：兼容性一般）</p>
-<p>####5.2 引用式<br>    [百度2][2]{:target=”_blank”}<br>    [2]: <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com/</a> “百度2下”<br>####5.3 邮箱链接<br>    <a href="mailto:&#x78;&#x78;&#x78;&#x78;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#x6f;&#x6d;">&#x78;&#x78;&#x78;&#x78;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>####5.2 引用式<br>    [百度2][2]{:target=”_blank”}<br>    [2]: <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com/</a> “百度2下”<br>####5.3 邮箱链接<br>    <a href="mailto:&#120;&#120;&#120;&#120;&#64;&#x31;&#x36;&#x33;&#46;&#99;&#111;&#x6d;">&#120;&#120;&#120;&#120;&#64;&#x31;&#x36;&#x33;&#46;&#99;&#111;&#x6d;</a></p>
 <h3 id="6、图片"><a href="#6、图片" class="headerlink" title="6、图片"></a>6、图片</h3><h4 id="6-1-内联式"><a href="#6-1-内联式" class="headerlink" title="6.1 内联式"></a>6.1 内联式</h4><pre><code>![图片alt](图片地址 &quot;title&quot;)
 </code></pre>
 <h4 id="6-2-引用式"><a href="#6-2-引用式" class="headerlink" title="6.2 引用式"></a>6.2 引用式</h4><pre><code>![图片alt][标记]
@@ -379,7 +378,7 @@ markdown[^1]
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 
