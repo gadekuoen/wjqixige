@@ -26,11 +26,19 @@
 <meta property="og:site_name" content="栖溪阁晓生">
 <meta property="og:description" content="MapReduce的思想核心是“分而治之”，适用于大量复杂的任务处理场景（大规模数据处理场景）。 Map负责“分”，即把复杂的任务分解为若干个“简单的任务”来并行处理。可以进行拆分的前提是这些小任务可以并行计算，彼此间几乎没有依赖关系。 Reduce负责“合”，即对map阶段的结果进行全局汇总。 这两个阶段合起来正是MapReduce思想的体现。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005006.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005008.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005009.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005007.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005010.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005011.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005012.png">
 <meta property="article:published_time" content="2019-12-14T04:42:48.000Z">
 <meta property="article:modified_time" content="2019-12-14T04:55:58.087Z">
 <meta property="article:author" content="Mr.wj">
 <meta property="article:tag" content="MapReduce">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005006.png">
 
 
 <link rel="canonical" href="http://www.wjqixige.cn/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
@@ -136,7 +144,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -149,7 +157,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -165,7 +173,7 @@
         <a href="https://me.csdn.net/weixin_39455881" title="CSDN → https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_39455881" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank">微博</a>
+        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
       </span>
   </div>
 
@@ -185,6 +193,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -274,7 +283,7 @@
 <li><strong>MapTask</strong>：负责map阶段的整个数据处理流程</li>
 <li><strong>ReduceTask</strong>：负责reduce阶段的整个数据处理流程</li>
 </ol>
-
+<img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005006.png" class="">
 
 <h2 id="MapReduce编程规范"><a href="#MapReduce编程规范" class="headerlink" title="MapReduce编程规范"></a>MapReduce编程规范</h2><p>MapReduce的开发一共有八个 步骤：map阶段2个，shuffle阶段4个，reduce阶段2个</p>
 <h3 id="Map阶段"><a href="#Map阶段" class="headerlink" title="Map阶段"></a>Map阶段</h3><ol>
@@ -327,7 +336,7 @@
 </ol>
 <h2 id="MapReduce分区"><a href="#MapReduce分区" class="headerlink" title="MapReduce分区"></a>MapReduce分区</h2><p> 在MapReduce中，通过指定分区，会将同一个分区的数据发送到同一个reduce当中进行处理。简单说就是相同类型的数据，送到一起去处理，在reduce当中默认分区只有1个。</p>
 <p>MapReduce当中的的分区类图：</p>
-
+<img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005008.png" class="">
 
 <h2 id="MapReduce排序以及序列化"><a href="#MapReduce排序以及序列化" class="headerlink" title="MapReduce排序以及序列化"></a>MapReduce排序以及序列化</h2><p>序列化（Serialization）是指结构化对象转换为字节流。</p>
 <p>反序列化（Deserialization）是序列化的逆过程。把字节流转为结构化对象。</p>
@@ -382,11 +391,11 @@
 </tr>
 </tbody></table>
 <p> 每次mapreduce执行完成之后，我们都会看到一些日志记录出来，其中最重要的一些日志记录如下截图：</p>
+<img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005009.png" class="">
 
+<h2 id="MapReduce运行机制"><a href="#MapReduce运行机制" class="headerlink" title="MapReduce运行机制"></a>MapReduce运行机制</h2><h3 id="MapTask工作机制"><a href="#MapTask工作机制" class="headerlink" title="MapTask工作机制"></a>MapTask工作机制</h3><img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005007.png" class="">
 
-<h2 id="MapReduce运行机制"><a href="#MapReduce运行机制" class="headerlink" title="MapReduce运行机制"></a>MapReduce运行机制</h2><h3 id="MapTask工作机制"><a href="#MapTask工作机制" class="headerlink" title="MapTask工作机制"></a>MapTask工作机制</h3>
-
-
+<img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005010.png" class="">
 
 <p>整个Map阶段流程大体如上图所示。简单概述：inputFile通过split被逻辑切分为多个split文件，通过Record按行读取内容给map（用户自己实现的）进行处理，数据被map处理结束之后交给OutputCollector收集器，对其结果key进行分区（默认使用hash分区），然后写入buffer，每个map task都有一个内存缓冲区，存储着map的输出结果，当缓冲区快满的时候需要将缓冲区的数据以一个临时文件的方式存放到磁盘，当整个map task结束后再对磁盘中这个map task产生的所有临时文件做合并，生成最终的正式输出文件，然后等待reduce task来拉数据。</p>
 <p><strong>详细步骤</strong>：</p>
@@ -424,7 +433,7 @@
 <p>设置四：设置一次最多合并多少个溢写文件</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.task.io.sort.factor<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>10<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="ReduceTask工作机制"><a href="#ReduceTask工作机制" class="headerlink" title="ReduceTask工作机制"></a>ReduceTask工作机制</h3>
+<h3 id="ReduceTask工作机制"><a href="#ReduceTask工作机制" class="headerlink" title="ReduceTask工作机制"></a>ReduceTask工作机制</h3><img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005011.png" class="">
 
 <p>Reduce大致分为copy、sort、reduce三个阶段，重点在前两个阶段。copy阶段包含一个eventFetcher来获取已完成的map列表，由Fetcher线程去copy数据，在此过程中会启动两个merge线程，分别为inMemoryMerger和onDiskMerger，分别将内存中的数据merge到磁盘和将磁盘中的数据进行merge。待数据copy完成之后，copy阶段就完成了，开始进行sort阶段，sort阶段主要是执行finalMerge操作，纯粹的sort阶段，完成之后就是reduce阶段，调用用户定义的reduce函数进行处理。</p>
 <p><strong>详细步骤：</strong></p>
@@ -440,7 +449,7 @@
 </ol>
 <h3 id="Shuffle过程"><a href="#Shuffle过程" class="headerlink" title="Shuffle过程"></a>Shuffle过程</h3><p>map阶段处理的数据如何传递给reduce阶段，是MapReduce框架中最关键的一个流程，这个流程就叫shuffle。</p>
 <p>shuffle: 洗牌、发牌——（核心机制：数据分区，排序，分组，规约，合并等过程）。</p>
-
+<img src="/2019/12/14/MapReduce%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/wj20191005012.png" class="">
 
 <p>shuffle是Mapreduce的核心，它分布在Mapreduce的map阶段和reduce阶段。一般把从Map产生输出开始到Reduce取得数据作为输入之前的过程称作shuffle。</p>
 <ol>
@@ -763,6 +772,9 @@
   <footer class="footer">
     <div class="footer-inner">
 
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18041583号-1 </a>
+      <img src="/images/beian.png">
+  </div>
 
 <div class="copyright">
   &copy; 2018 – 
@@ -772,9 +784,6 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Mr.wj</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-    浙ICP备 - <a target="_blank"  href="http://www.beian.miit.gov.cn/">18041583号-1</a>
-  </div>
 
     </div>
   </footer>

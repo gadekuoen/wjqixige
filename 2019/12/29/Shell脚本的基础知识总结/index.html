@@ -26,11 +26,13 @@
 <meta property="og:site_name" content="栖溪阁晓生">
 <meta property="og:description" content="shell脚本是利用shell的功能所写的一个【程序】。这个程序是使用纯文本文件，将一些shell的语法与命令（含外部命令）写在里面，搭配正则表达式、管道命令与数据流重定向等功能，以达到我们所想要的处理目的。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wjqixige.cn/2019/12/29/Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/linux20191226001.png">
 <meta property="article:published_time" content="2019-12-29T06:28:33.000Z">
 <meta property="article:modified_time" content="2019-12-29T06:39:04.372Z">
 <meta property="article:author" content="Mr.wj">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wjqixige.cn/2019/12/29/Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/linux20191226001.png">
 
 
 <link rel="canonical" href="http://www.wjqixige.cn/2019/12/29/Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">
@@ -136,7 +138,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -149,7 +151,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -165,7 +167,7 @@
         <a href="https://me.csdn.net/weixin_39455881" title="CSDN → https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_39455881" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank">微博</a>
+        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
       </span>
   </div>
 
@@ -185,6 +187,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -280,7 +283,7 @@
 </ol>
 <h2 id="脚本的执行方式差异（source、sh-script、-script）"><a href="#脚本的执行方式差异（source、sh-script、-script）" class="headerlink" title="脚本的执行方式差异（source、sh script、./script）"></a>脚本的执行方式差异（source、sh script、./script）</h2><p><strong>直接命令执行的方式</strong>（无论是绝对路径/相对路径还是${PATH}内，或是利用bash(或sh)）来执行脚本时，该脚本都会使用一个新的bash环境来执行脚本内的命令；换句话说，就是采用直接命令的执行方式，脚本是在子进程中执行，当子进程执行完成后，在子进程中的变量或操作将会结束而不会传回到父进程中。</p>
 <p><strong>利用source来执行</strong>，则该脚本就在父进程中执行。</p>
-
+<img src="/2019/12/29/Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/linux20191226001.png" class="">
 
 <h1 id="判断式"><a href="#判断式" class="headerlink" title="判断式"></a>判断式</h1><h2 id="利用test命令测试功能"><a href="#利用test命令测试功能" class="headerlink" title="利用test命令测试功能"></a>利用test命令测试功能</h2><ol>
 <li><p>关于某个文件名的【文件类型】判断，如 <code>test -e filename</code>表示存在否</p>
@@ -567,6 +570,9 @@
   <footer class="footer">
     <div class="footer-inner">
 
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18041583号-1 </a>
+      <img src="/images/beian.png">
+  </div>
 
 <div class="copyright">
   &copy; 2018 – 
@@ -576,9 +582,6 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Mr.wj</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-    浙ICP备 - <a target="_blank"  href="http://www.beian.miit.gov.cn/">18041583号-1</a>
-  </div>
 
     </div>
   </footer>

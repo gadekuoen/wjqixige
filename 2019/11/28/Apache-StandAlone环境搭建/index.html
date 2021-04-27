@@ -27,7 +27,7 @@
 <meta property="og:description" content="在一台虚拟机上面搭建大数据环境，规划如下：    运行服务 服务器IP    NameNode 192.168.146.100   SecondaryNameNode 192.168.146.100   DataNode 192.168.146.100   ResourceManager 192.168.146.100   NodeManager 192.168.146.100">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-11-28T12:58:39.000Z">
-<meta property="article:modified_time" content="2019-11-28T13:38:16.251Z">
+<meta property="article:modified_time" content="2021-04-23T11:11:31.138Z">
 <meta property="article:author" content="Mr.wj">
 <meta property="article:tag" content="环境搭建">
 <meta name="twitter:card" content="summary">
@@ -136,7 +136,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -149,7 +149,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -165,7 +165,7 @@
         <a href="https://me.csdn.net/weixin_39455881" title="CSDN → https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_39455881" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank">微博</a>
+        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
       </span>
   </div>
 
@@ -185,6 +185,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -225,10 +226,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2019-11-28 20:58:39 / 修改时间：21:38:16" itemprop="dateCreated datePublished" datetime="2019-11-28T20:58:39+08:00">2019-11-28</time>
+      <time title="创建时间：2019-11-28 20:58:39" itemprop="dateCreated datePublished" datetime="2019-11-28T20:58:39+08:00">2019-11-28</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-23 19:11:31" itemprop="dateModified" datetime="2021-04-23T19:11:31+08:00">2021-04-23</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -281,7 +288,7 @@
 <span id="more"></span>
 
 <h2 id="下载apache-hadoop软件"><a href="#下载apache-hadoop软件" class="headerlink" title="下载apache hadoop软件"></a>下载apache hadoop软件</h2><p>下载连接：<a target="_blank" rel="noopener" href="http://archive.apache.org/dist/hadoop/common/hadoop-2.7.5/hadoop-2.7.5.tar.gz">http://archive.apache.org/dist/hadoop/common/hadoop-2.7.5/hadoop-2.7.5.tar.gz</a></p>
-<p>网盘下载：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1bFxJOXzzf4PotFvuFXycUQ">https://pan.baidu.com/s/1bFxJOXzzf4PotFvuFXycUQ</a>  提取码：gbst </p>
+<p>网盘下载：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1rnp2RDK4Y771wOm30pgW2A">https://pan.baidu.com/s/1rnp2RDK4Y771wOm30pgW2A</a>  提取码：e7ty </p>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="修改core-site-xml"><a href="#修改core-site-xml" class="headerlink" title="修改core-site.xml"></a>修改core-site.xml</h3><p>配置的详细信息参考官网：</p>
 <p><a target="_blank" rel="noopener" href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/core-default.xml">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/core-default.xml</a> </p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  默认的文件系统名，值是URL，用于确定文件系统的host,port --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://192.168.146.100:8020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- A base for other temporary directories. --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/export/servers/hadoop-2.7.5/hadoopDatas/tempDatas<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--  缓冲区大小，实际工作中根据服务器性能动态调整 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>io.file.buffer.size<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>4096<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--  开启hdfs的垃圾桶机制，删除掉的数据可以从垃圾桶中回收，单位分钟 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.trash.interval<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>10080<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -359,6 +366,9 @@
   <footer class="footer">
     <div class="footer-inner">
 
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18041583号-1 </a>
+      <img src="/images/beian.png">
+  </div>
 
 <div class="copyright">
   &copy; 2018 – 
@@ -368,9 +378,6 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Mr.wj</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-    浙ICP备 - <a target="_blank"  href="http://www.beian.miit.gov.cn/">18041583号-1</a>
-  </div>
 
     </div>
   </footer>

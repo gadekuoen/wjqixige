@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.wjqixige.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="记录一些开发中经常用到的实用技术。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面开发常用技术">
+<meta property="og:url" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:site_name" content="栖溪阁晓生">
+<meta property="og:description" content="记录一些开发中经常用到的实用技术。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/title.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/fontt.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/03.jpg">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/fontt1.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/1498032122244.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/11.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/222.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/fontt5.png">
+<meta property="article:published_time" content="2021-04-23T02:27:35.000Z">
+<meta property="article:modified_time" content="2021-04-23T11:11:31.283Z">
+<meta property="article:author" content="Mr.wj">
+<meta property="article:tag" content="前端开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/title.png">
+
+
+<link rel="canonical" href="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;www.wjqixige.cn&#x2F;2021&#x2F;04&#x2F;23&#x2F;%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;04&#x2F;23&#x2F;页面开发常用技术&#x2F;&quot;,&quot;title&quot;:&quot;页面开发常用技术&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>页面开发常用技术 | 栖溪阁晓生</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">栖溪阁晓生</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人在线笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B7%E5%BC%8F%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">一、样式文件的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BD%91%E7%AB%99ico%E5%9B%BE%E6%A0%87"><span class="nav-text">二、网站ico图标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8ico%E5%9B%BE%E6%A0%87"><span class="nav-text">1 使用ico图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%B6%E4%BD%9Cico%E5%9B%BE%E6%A0%87"><span class="nav-text">2 制作ico图标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%BD%91%E7%AB%99%E4%BC%98%E5%8C%96%E4%B8%89%E5%A4%A7%E6%A0%87%E7%AD%BE"><span class="nav-text">三、网站优化三大标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BD%91%E9%A1%B5title-%E6%A0%87%E9%A2%98"><span class="nav-text">1 网页title 标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Description-%E7%BD%91%E7%AB%99%E8%AF%B4%E6%98%8E"><span class="nav-text">2 Description  网站说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Keywords-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">3 Keywords 关键字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87"><span class="nav-text">四、字体图标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E4%BC%98%E7%82%B9"><span class="nav-text">1 字体图标优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-text">2 字体图标使用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%AE%BE%E8%AE%A1%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87"><span class="nav-text">3 设计字体图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%8A%E4%BC%A0%E7%94%9F%E6%88%90%E5%AD%97%E4%BD%93%E5%8C%85"><span class="nav-text">4 上传生成字体包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%B8%8B%E8%BD%BD%E5%85%BC%E5%AE%B9%E5%AD%97%E4%BD%93%E5%8C%85"><span class="nav-text">5 下载兼容字体包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%AD%97%E4%BD%93%E5%BC%95%E5%85%A5%E5%88%B0HTML"><span class="nav-text">6 字体引入到HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%BF%BD%E5%8A%A0%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87"><span class="nav-text">7 追加字体图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%AD%97%E4%BD%93%E6%A0%BC%E5%BC%8F"><span class="nav-text">@ 常见字体格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81logo-%E4%BC%98%E5%8C%96"><span class="nav-text">五、logo 优化</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/"><img class="site-author-image" itemprop="image" alt="Mr.wj" src="/uploads/logo.jpg"></a>
+  <p class="site-author-name" itemprop="name">Mr.wj</p>
+  <div class="site-description" itemprop="description">欢迎来到栖息阁晓生博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gadekuoen/wjqixige" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gadekuoen&#x2F;wjqixige" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wujiang569@126.com" title="E-Mail → wujiang569@126.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://me.csdn.net/weixin_39455881" title="CSDN → https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_39455881" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wjqixige.cn/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Mr.wj">
+      <meta itemprop="description" content="欢迎来到栖息阁晓生博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="栖溪阁晓生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          页面开发常用技术
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-23 10:27:35 / 修改时间：19:11:31" itemprop="dateCreated datePublished" datetime="2021-04-23T10:27:35+08:00">2021-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        
+
+<p>记录一些开发中经常用到的实用技术。</p>
+<span id="more"></span>
+
+<h2 id="一、样式文件的分类"><a href="#一、样式文件的分类" class="headerlink" title="一、样式文件的分类"></a>一、样式文件的分类</h2><ul>
+<li>初始化css (css reset)  让浏览器风格统一，把常用的初始化语句放入 base.css里面。</li>
+</ul>
+<ul>
+<li>把一些公共的样式 放入common.css里面。</li>
+</ul>
+<h2 id="二、网站ico图标"><a href="#二、网站ico图标" class="headerlink" title="二、网站ico图标"></a>二、网站ico图标</h2>  
+
+<h3 id="1-使用ico图标"><a href="#1-使用ico图标" class="headerlink" title="1 使用ico图标"></a>1 使用ico图标</h3><ul>
+<li><p>首先把favicon.ico 这个图标放到根目录下。</p>
+</li>
+<li><p>再html里面，  head 之间 引入 代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;shortcut icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>  <span class="attr">type</span>=<span class="string">&quot;image/x-icon&quot;</span>/&gt;</span>     </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-制作ico图标"><a href="#2-制作ico图标" class="headerlink" title="2 制作ico图标"></a>2 制作ico图标</h3><p>可以自己做的图片，转换为 ico图标，以便放到我们站点里面。</p>
+<p>方法步骤：</p>
+<ul>
+<li>首先把我们想要的切成图片。</li>
+<li>要把图片转换为 ico 图标，我们借助于第三方转换网站：   <a target="_blank" rel="noopener" href="http://www.bitbug.net/%E3%80%82">http://www.bitbug.net/。</a>  比特虫  </li>
+</ul>
+<p>注意： </p>
+<ol>
+<li>她（它）是显示在浏览器中的网页图标；</li>
+<li>它是图标形式，不是一个图片；</li>
+<li>位置是放到 head 标签中间；</li>
+<li>后面的type=”image/x-icon”  属性可以省略；</li>
+<li>为了兼容性，请将favicon.ico 这个图标放到根目录下；</li>
+</ol>
+<h2 id="三、网站优化三大标签"><a href="#三、网站优化三大标签" class="headerlink" title="三、网站优化三大标签"></a>三、网站优化三大标签</h2><p>SEO是由英文Search Engine Optimization缩写而来， 中文意译为“搜索引擎优化”！</p>
+<p>常见的搜索引擎，比如百度，谷歌，雅虎，搜狗等等..</p>
+<p>SEO是指通过对网站进行站内优化、网站结构调整、网站内容建设、网站代码优化等和站外优化，从而提高网站的关键词排名以及公司产品的曝光度。 简单的说就是，把产品做好，搜索引擎就会介绍客户来。  </p>
+
+
+<h3 id="1-网页title-标题"><a href="#1-网页title-标题" class="headerlink" title="1 网页title 标题"></a>1 网页title 标题</h3><p>title具有不可替代性，是我们的内页第一个重要标签，是搜索引擎了解网页的入口和对网页主题归属的最佳判断点。</p>
+<img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/title.png" class="">
+
+<p><strong>建议：</strong>首页标题：网站名（产品名）- 网站的介绍    </p>
+<p>例如：</p>
+<ul>
+<li><p>品优购-综合网购首选-正品低价、品质保障、配送及时、轻松购物！</p>
+</li>
+<li><p>小米商城 - 小米5s、红米Note 4、小米MIX、小米笔记本官方网站</p>
+</li>
+</ul>
+<h3 id="2-Description-网站说明"><a href="#2-Description-网站说明" class="headerlink" title="2 Description  网站说明"></a>2 Description  网站说明</h3><p>对于关键词的作用明显降低，但由于很多搜索引擎，仍然大量采用网页的MATA标签中描述部分作为搜索结果的“内容摘要”。 就是简要说明我们网站的主要做什么的。提倡Description作为网站的总体业务和主题概括，多采用“我们是…”“我们提供…”“×××网作为…”“电话：010…”之类语句。</p>
+<p>注意点：</p>
+<ol>
+<li>描述中出现关键词，与正文内容相关，这部分内容是给人看的，所以要写的很详细，让人感兴趣， 吸引用户点击。</li>
+<li>同样遵循简短原则，字符数含空格在内不要超过 120  个汉字。</li>
+<li>补充在 title  和 keywords  中未能充分表述的说明.</li>
+<li>用英文逗号 关键词1,关键词2</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;小米商城直营小米公司旗下所有产品，囊括小米手机系列小米MIX、小米Note 2，红米手机系列红米Note 4、红米4，智能硬件，配件及小米生活周边，同时提供小米客户服务及售后支持。&quot;</span> %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Keywords-关键字"><a href="#3-Keywords-关键字" class="headerlink" title="3 Keywords 关键字"></a>3 Keywords 关键字</h3><p>Keywords是页面关键词，是搜索引擎关注点之一。Keywords应该限制在6～8个关键词左右，电商类网站可以多 少许。</p>
+<p>小米网：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;小米,小米6,红米Note4,小米MIX,小米商城&quot;</span> %&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="四、字体图标"><a href="#四、字体图标" class="headerlink" title="四、字体图标"></a>四、字体图标</h2><p>图片是有诸多优点的，但是缺点很明显，比如图片不但增加了总文件的大小，还增加了很多额外的”http请求”，这都会大大降低网页的性能的。更重要的是图片不能很好的进行“缩放”，因为图片放大和缩小会失真。此时，一个非常重要的技术出现了，这就是字体图标（iconfont)。</p>
+<h3 id="1-字体图标优点"><a href="#1-字体图标优点" class="headerlink" title="1 字体图标优点"></a>1 字体图标优点</h3><ul>
+<li>可以做出跟图片一样可以做的事情,改变透明度、旋转度等；</li>
+<li>但是本质其实是文字，可以很随意的改变颜色、产生阴影、透明效果等；</li>
+<li>本身体积更小，但携带的信息并没有削减；</li>
+<li>几乎支持所有的浏览器；</li>
+<li>移动端设备必备良药；</li>
+</ul>
+<h3 id="2-字体图标使用流程"><a href="#2-字体图标使用流程" class="headerlink" title="2 字体图标使用流程"></a>2 字体图标使用流程</h3><p>总体来说，字体图标按照如下流程：</p>
+<img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/fontt.png" class="">
+
+<h3 id="3-设计字体图标"><a href="#3-设计字体图标" class="headerlink" title="3 设计字体图标"></a>3 设计字体图标</h3><p>假如图标是公司单独设计，那就需要第一步了，这个属于UI设计人员的工作， 他们在 illustrator 或 Sketch 这类矢量图形软件里创建 icon图标， 比如下图：</p>
+<img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/03.jpg" class="">
+
+<p>之后保存为svg格式，然后给我们前端人员就好了。</p>
+<h3 id="4-上传生成字体包"><a href="#4-上传生成字体包" class="headerlink" title="4 上传生成字体包"></a>4 上传生成字体包</h3><p>当UI设计人员给svg文件的时候，需要转换成我们页面能使用的字体文件， 而且需要生成的是兼容性的适合各个浏览器的。</p>
+<ul>
+<li><p><strong>icomoon字库</strong></p>
+<p>IcoMoon成立于2011年，推出的第一个自定义图标字体生成器，它允许用户选择他们所需要的图标，使它们成一字型。 内容种类繁多，非常全面，唯一的遗憾是国外服务器，打开网速较慢。 <a target="_blank" rel="noopener" href="http://icomoon.io/">http://icomoon.io</a></p>
+</li>
+<li><p><strong>阿里icon font字库</strong></p>
+<p>阿里妈妈M2UX的一个icon font字体图标字库，包含了淘宝图标库和阿里妈妈图标库。可以使用AI制作图标上传生成（免费）。  <a target="_blank" rel="noopener" href="http://www.iconfont.cn/">http://www.iconfont.cn/</a></p>
+</li>
+</ul>
+<h3 id="5-下载兼容字体包"><a href="#5-下载兼容字体包" class="headerlink" title="5 下载兼容字体包"></a>5 下载兼容字体包</h3><p>到刚才的网站上找喜欢的下载使用。</p>
+<img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/fontt1.png" class="">
+
+
+
+<h3 id="6-字体引入到HTML"><a href="#6-字体引入到HTML" class="headerlink" title="6 字体引入到HTML"></a>6 字体引入到HTML</h3><p>得到压缩包之后，得知字体图标 本质就是 字体文件。 注意这个压缩包不要删掉，后面还有用的。</p>
+ <img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/1498032122244.png" class="">
+
+<p>最后一步需要引入到我们页面中。</p>
+<ol>
+<li><p>首先把 fonts文件夹放入我们 根目录下 ；</p>
+ <img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/11.png" class=""></li>
+<li><p>html标签内里面添加结构；</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">span</span>&gt;&lt;/<span class="selector-tag">span</span>&gt;  </span><br></pre></td></tr></table></figure>
+
+ <img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/222.png" class=""></li>
+<li><p>在样式里面声明字体(一定注意字体文件路径的问题)；</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;icomoon&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>:  <span class="built_in">url</span>(<span class="string">&#x27;fonts/icomoon.eot?7kkyc2&#x27;</span>);</span><br><span class="line">    <span class="attribute">src</span>:  <span class="built_in">url</span>(<span class="string">&#x27;fonts/icomoon.eot?7kkyc2#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>),</span><br><span class="line">        <span class="built_in">url</span>(<span class="string">&#x27;fonts/icomoon.ttf?7kkyc2&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>),</span><br><span class="line">        <span class="built_in">url</span>(<span class="string">&#x27;fonts/icomoon.woff?7kkyc2&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>),</span><br><span class="line">        <span class="built_in">url</span>(<span class="string">&#x27;fonts/icomoon.svg?7kkyc2#icomoon&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>);</span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>给盒子使用字体</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">span</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&quot;icomoon&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="7-追加字体图标"><a href="#7-追加字体图标" class="headerlink" title="7 追加字体图标"></a>7 追加字体图标</h3><p>工作中，原来的字体图标不够用了，我们需要添加新的字体图标，但是原来的不能删除，继续使用，此时我们需要这样做：把压缩包里面的selection.json 从新上传，然后，选中自己想要新的图标，从新下载压缩包，替换原来文件即可。</p>
+   <img src="/2021/04/23/%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/fontt5.png" class="">
+
+<h3 id="常见字体格式"><a href="#常见字体格式" class="headerlink" title="@ 常见字体格式"></a>@ 常见字体格式</h3><p>不同浏览器所支持的字体格式是不一样的，我们有必要了解一下有关字体格式的知识。</p>
+<p><strong>TureType(.ttf)格式</strong></p>
+<p>.ttf字体是Windows和Mac的最常见的字体，是一种RAW格式，支持这种字体的浏览器有IE9+、Firefox3.5+、Chrome4+、Safari3+、Opera10+、iOS Mobile、Safari4.2+；</p>
+<p><strong>OpenType(.otf)格式</strong></p>
+<p>.otf字体被认为是一种原始的字体格式，其内置在TureType的基础上，支持这种字体的浏览器有Firefox3.5+、Chrome4.0+、Safari3.1+、Opera10.0+、iOS Mobile、Safari4.2+；</p>
+<p><strong>Web Open Font Format(.woff)格式</strong></p>
+<p>woff字体是Web字体中最佳格式，他是一个开放的TrueType/OpenType的压缩版本，同时也支持元数据包的分离，支持这种字体的浏览器有IE9+、Firefox3.5+、Chrome6+、Safari3.6+、Opera11.1+；</p>
+<p><strong>Embedded Open Type(.eot)格式</strong></p>
+<p>.eot字体是IE专用字体，可以从TrueType创建此格式字体，支持这种字体的浏览器有IE4+；</p>
+<p><strong>SVG(.svg)格式</strong></p>
+<p>.svg字体是基于SVG字体渲染的一种格式，支持这种字体的浏览器有Chrome4+、Safari3.1+、Opera10.0+、iOS Mobile Safari3.2+；</p>
+<p>在开发中，需要为不同的浏览器准备不同格式的字体，通常我们会通过字体生成工具帮我们生成各种格式的字体，因此无需过于在意字体格式间的区别差异。</p>
+<h2 id="五、logo-优化"><a href="#五、logo-优化" class="headerlink" title="五、logo 优化"></a>五、logo 优化</h2><ol>
+<li>logo里面首先放一个 h1 标签 ，目的是为了提权，告诉搜索引擎，这个地方很重要；</li>
+<li>h1里面再放一个a链接，可以返回首页的，给连接一个大小和logo的背景图片；</li>
+<li>链接里面要放文字（网站名称），为了搜索引擎收录我们；但是文字不要显示出来<ol>
+<li>用 text-indent  移到盒子外面 （text-indent: -9999px)   然后overflow:hidden  淘宝的做法；</li>
+<li>直接给font-size: 0;  就看不到文字了，  京东的做法；</li>
+</ol>
+</li>
+<li>最后给 连接一个 title  这样鼠标放到logo 上，  就可以看到提示文字了；</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;logo&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;index.html&quot;</span> <span class="attr">title</span>=<span class="string">&quot;logo名称&quot;</span>&gt;</span>logo名称<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" rel="tag"># 前端开发</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/11/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96%E4%BC%A0%E9%80%92%E4%BB%A3%E7%A0%81/" rel="prev" title="如何使用行为参数化传递代码">
+                  <i class="fa fa-chevron-left"></i> 如何使用行为参数化传递代码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/23/Git-Github%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="Git&Github常用命令">
+                  Git&Github常用命令 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18041583号-1 </a>
+      <img src="/images/beian.png">
+  </div>
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.wj</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

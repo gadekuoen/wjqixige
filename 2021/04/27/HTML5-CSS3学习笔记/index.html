@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.wjqixige.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="HTML5 是一个新版本的 HTML 语言，定义了新的标签、特性和属性，拥有一个强大的技术集，这些技术集是指： HTML5 、CSS3 、javascript, 这也是广义上的 HTML5。HTML5 拓展了以下一些内容： 1语义化标签、本地存储、兼容特性、2D、3D、动画、过渡、CSS3 特性、性能与集成  目前绝大多数新的属性都已经被浏览器所支持，最新版本的浏览器已经开始陆续支持最新的特性，H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5&amp;CSS3学习笔记">
+<meta property="og:url" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="栖溪阁晓生">
+<meta property="og:description" content="HTML5 是一个新版本的 HTML 语言，定义了新的标签、特性和属性，拥有一个强大的技术集，这些技术集是指： HTML5 、CSS3 、javascript, 这也是广义上的 HTML5。HTML5 拓展了以下一些内容： 1语义化标签、本地存储、兼容特性、2D、3D、动画、过渡、CSS3 特性、性能与集成  目前绝大多数新的属性都已经被浏览器所支持，最新版本的浏览器已经开始陆续支持最新的特性，H">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/yuyibq.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/audio.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/audiocanshu.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/vedio.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/videocanshu.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/h5input.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/newinput.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/attrcanshu.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/jiegouweilei.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/nthchildcanshu.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/weiyuansu.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/animationcanshu.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/steps.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/sanwei.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/perspective.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/rotateX.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/rotateY.png">
+<meta property="og:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/1498445454760.png">
+<meta property="article:published_time" content="2021-04-27T07:11:36.000Z">
+<meta property="article:modified_time" content="2021-04-27T12:48:42.957Z">
+<meta property="article:author" content="Mr.wj">
+<meta property="article:tag" content="html5&amp;css3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/yuyibq.png">
+
+
+<link rel="canonical" href="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;www.wjqixige.cn&#x2F;2021&#x2F;04&#x2F;27&#x2F;HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;04&#x2F;27&#x2F;HTML5-CSS3学习笔记&#x2F;&quot;,&quot;title&quot;:&quot;HTML5&amp;CSS3学习笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>HTML5&CSS3学习笔记 | 栖溪阁晓生</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">栖溪阁晓生</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人在线笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81HTML5-%E6%96%B0%E5%A2%9E%E6%A0%87%E7%AD%BE"><span class="nav-text">一、HTML5  新增标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%9F%B3%E9%A2%91%E6%A0%87%E7%AD%BE"><span class="nav-text">二、音频标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%A7%86%E9%A2%91%E6%A0%87%E7%AD%BE"><span class="nav-text">三、视频标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%96%B0%E5%A2%9E-input-%E6%A0%87%E7%AD%BE"><span class="nav-text">五、新增 input 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%96%B0%E5%A2%9E%E8%A1%A8%E5%8D%95%E5%B1%9E%E6%80%A7"><span class="nav-text">六、新增表单属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81CSS3-%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">七、CSS3  属性选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E7%BB%93%E6%9E%84%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">八、结构伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%9D%E3%80%81nth-child-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="nav-text">九、nth-child 参数详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E3%80%81nth-child-%E5%92%8C-nt-of-type-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">十、nth-child 和  nt-of-type 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">十一、伪元素选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%812D-%E8%BD%AC%E6%8D%A2-transform"><span class="nav-text">十二、2D 转换(transform)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%A7%BB%E5%8A%A8translate"><span class="nav-text">1 移动translate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BD%AC%E6%8D%A2rotate"><span class="nav-text">2 转换rotate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BC%A9%E6%94%BEscale"><span class="nav-text">3 缩放scale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2D-%E8%BD%AC%E6%8D%A2%E7%BB%BC%E5%90%88%E5%86%99%E6%B3%95%E4%BB%A5%E5%8F%8A%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98"><span class="nav-text">4 2D 转换综合写法以及顺序问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%8A%A8%E7%94%BB-animation"><span class="nav-text">十三、动画(animation)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8A%A8%E7%94%BB%E5%B8%B8%E8%A7%81%E5%B1%9E%E6%80%A7"><span class="nav-text">1 动画常见属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8A%A8%E7%94%BB%E7%AE%80%E5%86%99%E6%96%B9%E5%BC%8F"><span class="nav-text">2 动画简写方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%80%9F%E5%BA%A6%E6%9B%B2%E7%BA%BF%E7%BB%86%E8%8A%82"><span class="nav-text">3 速度曲线细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81-%E8%AE%A4%E8%AF%86-3D-%E8%BD%AC%E6%8D%A2"><span class="nav-text">十四、 认识 3D 转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3D-%E8%BD%AC%E6%8D%A2"><span class="nav-text">1 3D 转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3D-%E7%A7%BB%E5%8A%A8-translate3d"><span class="nav-text">2 3D 移动 translate3d</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%80%8F%E8%A7%86-perspective"><span class="nav-text">3 透视 perspective</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-translateZ"><span class="nav-text">4 translateZ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3D-%E6%97%8B%E8%BD%ACrotateX"><span class="nav-text">5 3D 旋转rotateX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3D-%E6%97%8B%E8%BD%AC-rotateY"><span class="nav-text">6 3D 旋转 rotateY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3D-%E6%97%8B%E8%BD%AC-rotateZ"><span class="nav-text">7 3D 旋转 rotateZ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3D-%E5%91%88%E7%8E%B0-transform-style"><span class="nav-text">8 3D 呈现 transform-style</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%BA%94%E3%80%81%E8%BF%87%E6%B8%A1"><span class="nav-text">十五、过渡</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/"><img class="site-author-image" itemprop="image" alt="Mr.wj" src="/uploads/logo.jpg"></a>
+  <p class="site-author-name" itemprop="name">Mr.wj</p>
+  <div class="site-description" itemprop="description">欢迎来到栖息阁晓生博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gadekuoen/wjqixige" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gadekuoen&#x2F;wjqixige" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wujiang569@126.com" title="E-Mail → wujiang569@126.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://me.csdn.net/weixin_39455881" title="CSDN → https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_39455881" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wjqixige.cn/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Mr.wj">
+      <meta itemprop="description" content="欢迎来到栖息阁晓生博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="栖溪阁晓生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTML5&CSS3学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-27 15:11:36 / 修改时间：20:48:42" itemprop="dateCreated datePublished" datetime="2021-04-27T15:11:36+08:00">2021-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/HTML-CSS/" itemprop="url" rel="index"><span itemprop="name">HTML/CSS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><code>HTML5</code> 是一个新版本的 <code>HTML</code> 语言，定义了新的标签、特性和属性，拥有一个强大的技术集，这些技术集是指： <code>HTML5</code> 、<code>CSS3</code> 、<code>javascript</code>, 这也是广义上的 <code>HTML5</code>。<code>HTML5</code> 拓展了以下一些内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语义化标签、本地存储、兼容特性、2D、3D、动画、过渡、CSS3 特性、性能与集成</span><br></pre></td></tr></table></figure>
+
+<p>目前绝大多数新的属性都已经被浏览器所支持，最新版本的浏览器已经开始陆续支持最新的特性，<code>HTML5</code> 已经是大势所趋。</p>
+<span id="more"></span>
+
+<h3 id="一、HTML5-新增标签"><a href="#一、HTML5-新增标签" class="headerlink" title="一、HTML5  新增标签"></a>一、<code>HTML5 </code> 新增标签</h3><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/yuyibq.png" class="">
+
+<ul>
+<li>语义化标签主要针对<code>搜索引擎</code>；</li>
+<li>新标签可以使用一次或者多次；</li>
+<li>在 <code>IE9</code> 浏览器中，需要把语义化标签都转换为块级元素；</li>
+<li>语义化标签，在移动端支持比较友好；</li>
+</ul>
+<h3 id="二、音频标签"><a href="#二、音频标签" class="headerlink" title="二、音频标签"></a>二、音频标签</h3><p>多媒体标签有两个，分别是：<code>音频audio</code>、<code>视频video</code></p>
+<p><code>audio</code> 标签可以在不使用标签的情况下，也能够原生的支持音频格式文件的播放，但是播放格式是有限的；audio 目前支持三种格式：</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/audio.png" class="">
+
+<p>audio 的参数</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/audiocanshu.png" class="">
+
+<p>代码演示</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">&lt;!-- 注意：在 chrome 浏览器中已经禁用了 autoplay 属性 --&gt;</span><br><span class="line">&lt;!-- &lt;audio src=&quot;./media/xxx.mp3&quot; controls autoplay&gt;&lt;/audio&gt; --&gt;</span><br><span class="line">&lt;!-- 因为不同浏览器支持不同的格式，所以我们采取的方案是这个音频准备多个文件 --&gt;</span><br><span class="line">&lt;<span class="selector-tag">audio</span> controls&gt;</span><br><span class="line">&lt;source src=&quot;./media/ttt.mp3&quot; type=&quot;audio/mpeg&quot; /&gt;</span><br><span class="line">&lt;/<span class="selector-tag">audio</span>&gt;</span><br><span class="line">&lt;/<span class="selector-tag">body</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、视频标签"><a href="#三、视频标签" class="headerlink" title="三、视频标签"></a>三、视频标签</h3><p>video 视频标签目前支持三种格式：</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/vedio.png" class="">
+
+<p>语法格式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">&quot;./media/mi.mp4&quot;</span> <span class="attr">controls</span>=<span class="string">&quot;controls %&#125;&lt;/video&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>video 参数：</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/videocanshu.png" class="">
+
+<p>代码演示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;video src=&quot;./media/video.mp4&quot; controls=&quot;controls %&#125;&lt;/video&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 谷歌浏览器禁用了自动播放功能，如果想自动播放，需要添加 muted 属性 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">video</span> <span class="attr">controls</span>=<span class="string">&quot;controls&quot;</span> <span class="attr">autoplay</span> <span class="attr">muted</span> <span class="attr">loop</span> <span class="attr">poster</span>=<span class="string">&quot;./media/pig.jpg %&#125;</span></span></span><br><span class="line"><span class="tag"><span class="string">    &lt;source src=&quot;</span><span class="attr">.</span>/<span class="attr">media</span>/<span class="attr">video.mp4</span>&quot; <span class="attr">type</span>=<span class="string">&quot;video/mp4 %&#125;</span></span></span><br><span class="line"><span class="tag"><span class="string">    &lt;source src=&quot;</span><span class="attr">.</span>/<span class="attr">media</span>/<span class="attr">video.ogg</span>&quot; <span class="attr">type</span>=<span class="string">&quot;video/ogg %&#125;</span></span></span><br><span class="line"><span class="tag"><span class="string">  &lt;/video&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">&lt;/body&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>多媒体标签总结：</p>
+<ul>
+<li>音频标签与视频标签使用基本一致</li>
+<li>多媒体标签在不同浏览器下情况不同，存在兼容性问题</li>
+<li>谷歌浏览器把音频和视频标签的自动播放都禁止了</li>
+<li>谷歌浏览器中视频添加 muted 标签可以自己播放</li>
+<li>注意：重点记住使用方法以及自动播放即可，其他属性可以在使用时查找对应的手册</li>
+</ul>
+</blockquote>
+<h3 id="五、新增-input-标签"><a href="#五、新增-input-标签" class="headerlink" title="五、新增 input 标签"></a>五、新增 input 标签</h3><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/h5input.png" class="">
+
+<h3 id="六、新增表单属性"><a href="#六、新增表单属性" class="headerlink" title="六、新增表单属性"></a>六、新增表单属性</h3><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/newinput.png" class="">
+
+<h3 id="七、CSS3-属性选择器"><a href="#七、CSS3-属性选择器" class="headerlink" title="七、CSS3  属性选择器"></a>七、<code>CSS3 </code> 属性选择器</h3><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/attrcanshu.png" class="">
+
+
+<h3 id="八、结构伪类选择器"><a href="#八、结构伪类选择器" class="headerlink" title="八、结构伪类选择器"></a>八、结构伪类选择器</h3><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/jiegouweilei.png" class="">
+
+<h3 id="九、nth-child-参数详解"><a href="#九、nth-child-参数详解" class="headerlink" title="九、nth-child 参数详解"></a>九、<code>nth-child</code> 参数详解</h3><p>nth-child 详解：</p>
+<ul>
+<li>注意：本质上就是选中第几个子元素</li>
+<li>n 可以是数字、关键字、公式</li>
+<li>n 如果是数字，就是选中第几个</li>
+<li>常见的关键字有 <code>even</code> 偶数、<code>odd</code> 奇数</li>
+<li>常见的公式如下(如果 n 是公式，则从 0 开始计算)</li>
+<li>但是第 0 个元素或者超出了元素的个数会被忽略</li>
+</ul>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/nthchildcanshu.png" class="">
+
+<h3 id="十、nth-child-和-nt-of-type-的区别"><a href="#十、nth-child-和-nt-of-type-的区别" class="headerlink" title="十、nth-child 和  nt-of-type 的区别"></a>十、<code>nth-child</code> 和  <code>nt-of-type</code> 的区别</h3><ul>
+<li><code>nth-child</code>  选择父元素里面的第几个子元素，不管是第几个类型</li>
+<li><code>nt-of-type</code>  选择指定类型的元素</li>
+</ul>
+<h3 id="十一、伪元素选择器"><a href="#十一、伪元素选择器" class="headerlink" title="十一、伪元素选择器"></a>十一、伪元素选择器</h3><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/weiyuansu.png" class="">
+
+<p>注意事项：</p>
+<ul>
+<li><code>before</code> 和 <code>after</code> 必须有 <code>content</code> 属性</li>
+<li><code>before</code> 在内容前面，after 在内容后面</li>
+<li><code>before</code> 和 <code>after</code> 创建的是一个元素，但是属于行内元素</li>
+<li>创建出来的元素在 <code>Dom</code> 中查找不到，所以称为伪元素</li>
+<li>伪元素和标签选择器一样，权重为 1</li>
+</ul>
+<h3 id="十二、2D-转换-transform"><a href="#十二、2D-转换-transform" class="headerlink" title="十二、2D 转换(transform)"></a>十二、<code>2D</code> 转换(transform)</h3><p><code>2D</code> 转换是改变标签在二维平面上的位置和形状,有以下三种：移动： <code>translate</code>、旋转： <code>rotate</code>、缩放： <code>scale</code></p>
+<h4 id="1-移动translate"><a href="#1-移动translate" class="headerlink" title="1 移动translate"></a>1 移动<code>translate</code></h4><p>x 就是 x 轴上水平移动，y 就是 y 轴上水平移动。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transform</span>: <span class="built_in">translate</span>(x, y)</span><br><span class="line">transform: <span class="built_in">translateX</span>(n)</span><br><span class="line">transfrom: <span class="built_in">translateY</span>(n)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>2D</code> 的移动主要是指 水平、垂直方向上的移动</li>
+<li><code>translate</code> 最大的优点就是不影响其他元素的位置</li>
+<li><code>translate</code> 中的100%单位，是相对于本身的宽度和高度来进行计算的</li>
+<li>行内标签没有效果</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: lightseagreen;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="comment">/* 平移 */</span></span><br><span class="line">  <span class="comment">/* 水平垂直移动 100px */</span></span><br><span class="line">  <span class="comment">/* transform: translate(100px, 100px); */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 水平移动 100px */</span></span><br><span class="line">  <span class="comment">/* transform: translate(100px, 0) */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 垂直移动 100px */</span></span><br><span class="line">  <span class="comment">/* transform: translate(0, 100px) */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 水平移动 100px */</span></span><br><span class="line">  <span class="comment">/* transform: translateX(100px); */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 垂直移动 100px */</span></span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">100px</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-转换rotate"><a href="#2-转换rotate" class="headerlink" title="2 转换rotate"></a>2 转换<code>rotate</code></h4><p>rotate 旋转：<code>2D</code> 旋转指的是让元素在二维平面内顺时针或者逆时针旋转</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 单位是：deg */</span></span><br><span class="line"><span class="attribute">transform</span>: <span class="built_in">rotate</span>(度数) </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>rotate</code> 里面跟度数，单位是 <code>deg</code></li>
+<li>角度为正时，顺时针，角度为负时，逆时针</li>
+<li>默认旋转的中心点是元素的中心点</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">360deg</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>设置元素旋转中心点(transform-origin)</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transform-origin</span>: x y;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意后面的参数 x 和 y 用空格隔开</li>
+<li>x y 默认旋转的中心点是元素的中心 (50% 50%)，等价于 <code>center</code>  <code>center</code></li>
+<li>还可以给 x y 设置像素或者方位名词(<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>、<code>center</code>)</li>
+</ul>
+<h4 id="3-缩放scale"><a href="#3-缩放scale" class="headerlink" title="3 缩放scale"></a>3 缩放<code>scale</code></h4><p><code>scale</code> 的作用：用来控制元素的放大与缩小</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transform</span>: <span class="built_in">scale</span>(x, y);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意，x 与 y 之间使用逗号进行分隔</li>
+<li><code>transform: scale(1, 1)</code>: 宽高都放大一倍，相当于没有放大</li>
+<li><code>transform: scale(2, 2)</code>: 宽和高都放大了二倍</li>
+<li><code>transform: scale(2)</code>: 如果只写了一个参数，第二个参数就和第一个参数一致</li>
+<li><code>transform:scale(0.5, 0.5)</code>: 缩小</li>
+<li><code>scale</code> 最大的优势：可以设置转换中心点缩放，默认以中心点缩放，而且不影响其他盒子</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="comment">/* 注意，数字是倍数的含义，所以不需要加单位 */</span></span><br><span class="line">    <span class="comment">/* transform: scale(2, 2) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 实现等比缩放，同时修改宽与高 */</span></span><br><span class="line">    <span class="comment">/* transform: scale(2) */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 小于 1 就等于缩放*/</span></span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">0.5</span>, <span class="number">0.5</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2D-转换综合写法以及顺序问题"><a href="#4-2D-转换综合写法以及顺序问题" class="headerlink" title="4 2D 转换综合写法以及顺序问题"></a>4 <code>2D</code> 转换综合写法以及顺序问题</h4><ul>
+<li>同时使用多个转换，其格式为 <code>transform: translate() rotate() scale()</code></li>
+<li>顺序会影响到转换的效果(先旋转会改变坐标轴方向)</li>
+<li>但我们同时有位置或者其他属性的时候，要将位移放到最前面</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">200px</span>, <span class="number">0</span>) <span class="built_in">rotate</span>(<span class="number">360deg</span>) <span class="built_in">scale</span>(<span class="number">1.2</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="十三、动画-animation"><a href="#十三、动画-animation" class="headerlink" title="十三、动画(animation)"></a>十三、动画(animation)</h3><p>动画是 <code>CSS3</code> 中最具颠覆性的特征之一，可通过设置多个节点来精确的控制一个或者一组动画，从而实现复杂的动画效果。</p>
+<p>动画的基本使用：先定义动画，在调用定义好的动画</p>
+<p><strong>1、语法格式(定义动画)</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> 动画名称 &#123;</span><br><span class="line">    <span class="number">0%</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">200px</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、语法格式(使用动画)</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">	<span class="comment">/* 调用动画 */</span></span><br><span class="line">    <span class="attribute">animation-name</span>: 动画名称;</span><br><span class="line"> 	<span class="comment">/* 持续时间 */</span></span><br><span class="line"> 	<span class="attribute">animation-duration</span>: 持续时间；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>0% 是动画的开始，100 % 是动画的完成，这样的规则就是动画序列</li>
+<li>在 @keyframs 中规定某项 CSS 样式，就由创建当前样式逐渐改为新样式的动画效果</li>
+<li>动画是使元素从一个样式逐渐变化为另一个样式的效果，可以改变任意多的样式任意多的次数</li>
+<li>用百分比来规定变化发生的时间，或用 <code>from</code> 和 <code>to</code>，等同于 0% 和 100%</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-tag">div</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">background-color</span>: aquamarine;</span><br><span class="line">        <span class="attribute">animation-name</span>: move;</span><br><span class="line">        <span class="attribute">animation-duration</span>: <span class="number">0.5s</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@keyframes</span> move&#123;</span><br><span class="line">        <span class="number">0%</span> &#123;</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">0px</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="number">100%</span> &#123;</span><br><span class="line">            <span class="attribute">transform</span>: <span class="built_in">translate</span>(<span class="number">500px</span>, <span class="number">0</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-动画常见属性"><a href="#1-动画常见属性" class="headerlink" title="1 动画常见属性"></a>1 动画常见属性</h4><img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/animationcanshu.png" class="">
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: aquamarine;</span><br><span class="line">  <span class="comment">/* 动画名称 */</span></span><br><span class="line">  <span class="attribute">animation-name</span>: move;</span><br><span class="line">  <span class="comment">/* 动画花费时长 */</span></span><br><span class="line">  <span class="attribute">animation-duration</span>: <span class="number">2s</span>;</span><br><span class="line">  <span class="comment">/* 动画速度曲线 */</span></span><br><span class="line">  <span class="attribute">animation-timing-function</span>: ease-in-out;</span><br><span class="line">  <span class="comment">/* 动画等待多长时间执行 */</span></span><br><span class="line">  <span class="attribute">animation-delay</span>: <span class="number">2s</span>;</span><br><span class="line">  <span class="comment">/* 规定动画播放次数 infinite: 无限循环 */</span></span><br><span class="line">  <span class="attribute">animation-iteration-count</span>: infinite;</span><br><span class="line">  <span class="comment">/* 是否逆行播放 */</span></span><br><span class="line">  <span class="attribute">animation-direction</span>: alternate;</span><br><span class="line">  <span class="comment">/* 动画结束之后的状态 */</span></span><br><span class="line">  <span class="attribute">animation-fill-mode</span>: forwards;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="comment">/* 规定动画是否暂停或者播放 */</span></span><br><span class="line">  <span class="attribute">animation-play-state</span>: paused;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-动画简写方式"><a href="#2-动画简写方式" class="headerlink" title="2 动画简写方式"></a>2 动画简写方式</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* animation: 动画名称 持续时间 运动曲线 何时开始 播放次数 是否反方向 起始与结束状态 */</span></span><br><span class="line"><span class="attribute">animation</span>: name duration timing-function delay iteration-count direction fill-mode</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>简写属性里面不包含 <code>animation-play-state</code></li>
+<li>暂停动画 <code>animation-play-state: paused</code>; 经常和鼠标经过等其他配合使用</li>
+<li>要想动画走回来，而不是直接调回来：<code>animation-direction: alternate</code></li>
+<li>盒子动画结束后，停在结束位置：<code>animation-fill-mode: forwards</code> </li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">animation</span>: move <span class="number">2s</span> linear <span class="number">1s</span> infinite alternate forwards;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-速度曲线细节"><a href="#3-速度曲线细节" class="headerlink" title="3 速度曲线细节"></a>3 速度曲线细节</h4><p><code>animation-timing-function</code>: 规定动画的速度曲线，默认是<code>ease</code></p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/steps.png" class="">
+
+<h3 id="十四、-认识-3D-转换"><a href="#十四、-认识-3D-转换" class="headerlink" title="十四、 认识 3D 转换"></a>十四、 认识 <code>3D</code> 转换</h3><ul>
+<li>x 轴：水平向右  – <strong>注意：x 轴右边是正值，左边是负值</strong></li>
+<li>y 轴：垂直向下  – <strong>注意：y 轴下面是正值，上面是负值</strong></li>
+<li>z 轴：垂直屏幕  –  <strong>注意：往外边的是正值，往里面的是负值</strong></li>
+</ul>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/sanwei.png" class="">
+
+<h4 id="1-3D-转换"><a href="#1-3D-转换" class="headerlink" title="1 3D 转换"></a>1 <code>3D</code> 转换</h4><ul>
+<li><code>3D</code> 位移：<code>translate3d(x, y, z)</code></li>
+<li><code>3D</code> 旋转：<code>rotate3d(x, y, z)</code></li>
+<li>透视：<code>perspctive</code></li>
+<li><code>3D</code>呈现 <code>transfrom-style</code></li>
+</ul>
+<h4 id="2-3D-移动-translate3d"><a href="#2-3D-移动-translate3d" class="headerlink" title="2 3D 移动 translate3d"></a>2 <code>3D</code> 移动 <code>translate3d</code></h4><ul>
+<li><code>3D</code> 移动就是在 <code>2D</code> 移动的基础上多加了一个可以移动的方向，就是 z 轴方向</li>
+<li><code>transform: translateX(100px)</code>：仅仅是在 x 轴上移动</li>
+<li><code>transform: translateY(100px)</code>：仅仅是在 y 轴上移动</li>
+<li><code>transform: translateZ(100px)</code>：仅仅是在 z 轴上移动</li>
+<li><code>transform: translate3d(x, y, z)</code>：其中x、y、z 分别指要移动的轴的方向的距离</li>
+<li><strong>注意：x, y, z 对应的值不能省略，不需要填写用 0 进行填充</strong></li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transform</span>: <span class="built_in">translate3d</span>(x, y, z)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transform</span>: <span class="built_in">translate3d</span>(<span class="number">100px</span>, <span class="number">100px</span>, <span class="number">100px</span>)</span><br><span class="line">/* 注意：x, y, z 对应的值不能省略，不需要填写用 <span class="number">0</span> 进行填充 */</span><br><span class="line">transform: <span class="built_in">translate3d</span>(<span class="number">100px</span>, <span class="number">100px</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-透视-perspective"><a href="#3-透视-perspective" class="headerlink" title="3 透视 perspective"></a>3 透视 <code>perspective</code></h4><ul>
+<li><p>如果想要网页产生 <code>3D</code> 效果需要透视(理解成 <code>3D</code> 物体投影的 <code>2D</code> 平面上)</p>
+</li>
+<li><p>实际上模仿人类的视觉位置，可视为安排一直眼睛去看</p>
+</li>
+<li><p>透视也称为视距，所谓的视距就是人的眼睛到屏幕的距离</p>
+</li>
+<li><p>距离视觉点越近的在电脑平面成像越大，越远成像越小</p>
+</li>
+<li><p>透视的单位是像素</p>
+</li>
+<li><p><strong>透视需要写在被视察元素的父盒子上面</strong></p>
+</li>
+<li><p>注意下方图片</p>
+<ul>
+<li><p>d：就是视距，视距就是指人的眼睛到屏幕的距离</p>
+</li>
+<li><p>z：就是 z 轴，z 轴越大(正值)，我们看到的物体就越大</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/perspective.png" class=""></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">perspective</span>: <span class="number">1000px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-translateZ"><a href="#4-translateZ" class="headerlink" title="4 translateZ"></a>4 <code>translateZ</code></h4><p><code>translateZ</code> 与 <code>perspecitve</code> 的区别</p>
+<ul>
+<li><code>perspecitve</code> 给父级进行设置，<code>translateZ</code> 给 子元素进行设置不同的大小</li>
+</ul>
+<h4 id="5-3D-旋转rotateX"><a href="#5-3D-旋转rotateX" class="headerlink" title="5 3D 旋转rotateX"></a>5 <code>3D</code> 旋转<code>rotateX</code></h4><p>3D 旋转指可以让元素在三维平面内沿着 x 轴、y 轴、z 轴 或者自定义轴进行旋转</p>
+<ul>
+<li><code>transform: rotateX(45deg)</code> – 沿着 x 轴正方向旋转 45 度</li>
+<li><code>transform: rotateY(45deg)</code> – 沿着 y 轴正方向旋转 45 度</li>
+<li><code>transform: rotateZ(45deg)</code> – 沿着 z 轴正方向旋转 45 度</li>
+<li><code>transform: rotate3d(x, y, z, 45deg)</code> – 沿着自定义轴旋转 45 deg 为角度</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">perspective</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">transition</span>: all <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateX</span>(-<span class="number">45deg</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>左手准则</strong></p>
+<ul>
+<li><p>左手的手拇指指向 x 轴的正方向</p>
+</li>
+<li><p>其余手指的弯曲方向就是该元素沿着 x 轴旋转的方向</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/rotateX.png" class="">   </li>
+</ul>
+<h4 id="6-3D-旋转-rotateY"><a href="#6-3D-旋转-rotateY" class="headerlink" title="6 3D 旋转 rotateY"></a>6 <code>3D</code> 旋转 <code>rotateY</code></h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">perspective</span>: <span class="number">500px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">transition</span>: all <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateY</span>(<span class="number">180deg</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>左手准则</strong></p>
+<ul>
+<li><p>左手的拇指指向 y 轴的正方向</p>
+</li>
+<li><p>其余的手指弯曲方向就是该元素沿着 y 轴旋转的方向(正值)</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/rotateY.png" class=""></li>
+</ul>
+<h4 id="7-3D-旋转-rotateZ"><a href="#7-3D-旋转-rotateZ" class="headerlink" title="7 3D 旋转 rotateZ"></a>7 <code>3D</code> 旋转 <code>rotateZ</code></h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">perspective</span>: <span class="number">500px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">transition</span>: all <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotateZ</span>(<span class="number">180deg</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>rotate3d</code>：</p>
+<ul>
+<li><code>transform: rotate3d(x, y, z, deg)</code> – 沿着自定义轴旋转 deg 为角度</li>
+<li>x, y, z 表示旋转轴的矢量，是标识你是否希望沿着该轴进行旋转，最后一个标识旋转的角度<ul>
+<li><code>transform: rotate3d(1, 1, 0, 180deg)</code> – 沿着对角线旋转 45deg</li>
+<li><code>transform: rotate3d(1, 0, 0, 180deg)</code> – 沿着 x 轴旋转 45deg</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">perspective</span>: <span class="number">500px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span><br><span class="line">  <span class="attribute">transition</span>: all <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate3d</span>(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">180deg</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-3D-呈现-transform-style"><a href="#8-3D-呈现-transform-style" class="headerlink" title="8 3D 呈现 transform-style"></a>8 <code>3D</code> 呈现 <code>transform-style</code></h4><p><code>transform-style</code></p>
+<ul>
+<li><p>☆☆☆☆☆</p>
+</li>
+<li><p>控制子元素是否开启三维立体环境</p>
+</li>
+<li><p><code>transform-style: flat</code>  代表子元素不开启 <code>3D</code> 立体空间，默认的</p>
+</li>
+<li><p><code>transform-style: preserve-3d</code> 子元素开启立体空间</p>
+</li>
+<li><p>代码写给父级，但是影响的是子盒子</p>
+</li>
+</ul>
+<h3 id="十五、过渡"><a href="#十五、过渡" class="headerlink" title="十五、过渡"></a>十五、过渡</h3><p>过渡（transition)是CSS3中具有颠覆性的特征之一，我们可以在不使用 Flash 动画或 JavaScript 的情况下，当元素从一种样式变换为另一种样式时为元素添加效果。低版本浏览器不支持（ie9以下版本） 但是不会影响页面布局，经常和 :hover 一起 搭配使用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transition</span>: 要过渡的属性  花费时间  运动曲线  何时开始;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>CSS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>transition</td>
+<td>简写属性，用于在一个属性中设置四个过渡属性。</td>
+<td>3</td>
+</tr>
+<tr>
+<td>transition-property</td>
+<td>规定应用过渡的 CSS 属性的名称。</td>
+<td>3</td>
+</tr>
+<tr>
+<td>transition-duration</td>
+<td>定义过渡效果花费的时间。默认是 0。</td>
+<td>3</td>
+</tr>
+<tr>
+<td>transition-timing-function</td>
+<td>规定过渡效果的时间曲线。默认是 “ease”。</td>
+<td>3</td>
+</tr>
+<tr>
+<td>transition-delay</td>
+<td>规定过渡效果何时开始。默认是 0。</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p><strong>属性：</strong>属性就是你想要变化的 css 属性，  宽度高度 背景颜色 内外边距都可以 。如果想要所有的属性都变化过渡， 写一个all 就可以。</p>
+<p><strong>花费时间：</strong>transition-duration  花费时间  单位是  秒（必须写单位）     s   ms      比如 0.5s    这个s单位必须写      ms 毫秒</p>
+<p><strong>运动曲线：</strong>默认是 ease</p>
+<p>运动曲线示意图：</p>
+<img src="/2021/04/27/HTML5-CSS3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/1498445454760.png" class="">
+
+<p><strong>何时开始：</strong>默认是 0s  鼠标触发就立即开始    可以设置 延迟触发时间</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/html5-css3/" rel="tag"># html5&css3</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/27/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%8D%E5%BE%97%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9F%A5%E8%AF%86/" rel="prev" title="前端开发不得不了解的浏览器知识">
+                  <i class="fa fa-chevron-left"></i> 前端开发不得不了解的浏览器知识
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18041583号-1 </a>
+      <img src="/images/beian.png">
+  </div>
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.wj</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
