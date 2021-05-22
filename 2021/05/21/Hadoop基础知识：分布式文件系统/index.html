@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.wjqixige.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="分布式文件系统，英文全称为Hadoop Distribute File System；简称：HDFS。是hadoop核心组件之一，作为最底层的分布式存储服务而存在。分布式文件系统解决的问题就是大数据存储。它们是横跨在多台计算机上的存储系统。分布式文件系统在大数据时代有着广泛的应用前景，它们为存储和处理超大规模数据提供所需的扩展能力。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop基础知识：分布式文件系统">
+<meta property="og:url" content="http://www.wjqixige.cn/2021/05/21/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="栖溪阁晓生">
+<meta property="og:description" content="分布式文件系统，英文全称为Hadoop Distribute File System；简称：HDFS。是hadoop核心组件之一，作为最底层的分布式存储服务而存在。分布式文件系统解决的问题就是大数据存储。它们是横跨在多台计算机上的存储系统。分布式文件系统在大数据时代有着广泛的应用前景，它们为存储和处理超大规模数据提供所需的扩展能力。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-21T06:11:12.000Z">
+<meta property="article:modified_time" content="2021-05-22T09:02:33.634Z">
+<meta property="article:author" content="Mr.wj">
+<meta property="article:tag" content="HDFS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.wjqixige.cn/2021/05/21/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;www.wjqixige.cn&#x2F;2021&#x2F;05&#x2F;21&#x2F;Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;05&#x2F;21&#x2F;Hadoop基础知识：分布式文件系统&#x2F;&quot;,&quot;title&quot;:&quot;Hadoop基础知识：分布式文件系统&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Hadoop基础知识：分布式文件系统 | 栖溪阁晓生</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">栖溪阁晓生</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人在线笔记本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">一、应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%80%82%E5%90%88%E5%9C%BA%E6%99%AF"><span class="nav-text">1 适合场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E9%80%82%E5%90%88%E5%9C%BA%E6%99%AF"><span class="nav-text">2 不适合场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">二、核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E5%8F%A3"><span class="nav-text">三、命令行接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">1 常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E9%99%90%E9%A2%9D%E9%85%8D%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="nav-text">2 文件限额配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="nav-text">3 安全模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Hadoop%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">四、Hadoop文件系统</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <a href="/"><img class="site-author-image" itemprop="image" alt="Mr.wj" src="/uploads/logo.jpg"></a>
+  <p class="site-author-name" itemprop="name">Mr.wj</p>
+  <div class="site-description" itemprop="description">欢迎来到栖息阁晓生博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gadekuoen/wjqixige" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gadekuoen&#x2F;wjqixige" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wujiang569@126.com" title="E-Mail → wujiang569@126.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://me.csdn.net/weixin_39455881" title="CSDN → https:&#x2F;&#x2F;me.csdn.net&#x2F;weixin_39455881" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/2983932047/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;2983932047&#x2F;profile?rightmod&#x3D;1&amp;wvr&#x3D;6&amp;mod&#x3D;personinfo&amp;is_all&#x3D;1" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wjqixige.cn/2021/05/21/Hadoop%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/logo.jpg">
+      <meta itemprop="name" content="Mr.wj">
+      <meta itemprop="description" content="欢迎来到栖息阁晓生博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="栖溪阁晓生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop基础知识：分布式文件系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-21 14:11:12" itemprop="dateCreated datePublished" datetime="2021-05-21T14:11:12+08:00">2021-05-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-22 17:02:33" itemprop="dateModified" datetime="2021-05-22T17:02:33+08:00">2021-05-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>分布式文件系统，英文全称为Hadoop Distribute File System；简称：HDFS。是hadoop核心组件之一，作为最底层的分布式存储服务而存在。分布式文件系统解决的问题就是大数据存储。它们是横跨在多台计算机上的存储系统。分布式文件系统在大数据时代有着广泛的应用前景，它们为存储和处理超大规模数据提供所需的扩展能力。</p>
+
+
+<span id="more"></span>
+
+<h2 id="一、应用场景"><a href="#一、应用场景" class="headerlink" title="一、应用场景"></a>一、应用场景</h2><h3 id="1-适合场景"><a href="#1-适合场景" class="headerlink" title="1 适合场景"></a>1 适合场景</h3><p><strong>存储超大文件：</strong> 这里超大指的是几百MB、GB、或者TB级别，需要高吞吐量，对延时没有要求；</p>
+<p><strong>采用流式数据访问方式：</strong> 即一次写入、多次读取。数据集经常从数据源生成或者拷贝一次，然后在其上做很多分析工作 ；</p>
+<p><strong>运行于商业硬件上：</strong>Hadoop不需要特别贵的机器，可运行于普通廉价机器，可以节约成本；也因此具有比较高的故障率，需要高容错性；</p>
+<p><strong>为数据存储提供所需的扩展能力</strong>；</p>
+<h3 id="2-不适合场景"><a href="#2-不适合场景" class="headerlink" title="2 不适合场景"></a>2 不适合场景</h3><p><strong>低延时的数据访问：</strong> 对延时要求在毫秒级别的应用，不适合采用HDFS。HDFS是为高吞吐数据传输设计的,因此会以提高延时为代价；</p>
+<p><strong>大量小文件：</strong>文件的元数据保存在NameNode的内存中， 整个文件系统的文件数量会受限于NameNode的内存大小。 经验而言，一个文件/目录/文件块一般占有150字节的元数据内存空间。如果有100万个文件，每个文件占用1个文件块，则需要大约300M的内存。因此十亿级别的文件数量在现有商用机器上难以支持；</p>
+<p><strong>多方读写，需要任意的文件修改：</strong>HDFS采用追加（append-only）的方式写入数据，不支持文件任意位置的修改，不支持多个写入器；</p>
+<h2 id="二、核心概念"><a href="#二、核心概念" class="headerlink" title="二、核心概念"></a>二、核心概念</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master/slave架构</td>
+<td>HDFS 采用 master/slave 架构。一般一个 HDFS 集群是有一个 nameNode 和一定数目的dataNode 组成。<br/>nameNode是 HDFS 集群主节点，dataNode是 HDFS 集群从节点，两种角色各司其职，共同协调完成分布式的文件存储服务。</td>
+</tr>
+<tr>
+<td>分块存储</td>
+<td>HDFS 中的文件在物理上是分块存储（block）的，块的大小可以通过配置参数来规定，默认大小在 hadoop2.x 版本中是 128M。</td>
+</tr>
+<tr>
+<td>名称空间nameSpace</td>
+<td>HDFS 支持传统的层次型文件组织结构；用户或者应用程序可以创建目录，然后将文件保存在这些目录里。<br/>文件系统名称空间的层次结构和大多数现有的文件系统类似：用户可以创建、删除、移动或重命名文件。<br/>nameNode 负责维护文件系统的名字空间，任何对文件系统名称空间或属性的修改都将被nameNode 记录下来。 <br/>HDFS 会给客户端提供一个统一的抽象目录树，客户端通过路径来访问文件，<br/>形如：hdfs://namenode:port/dir-a/dir-b/dir-c/file.data。</td>
+</tr>
+<tr>
+<td>元数据管理nameNode</td>
+<td>把目录结构及文件分块位置信息叫做元数据。<br/>nameNode负责维护整个HDFS文件系统的目录树结构，以及每一个文件所对应的 block 块信息。</td>
+</tr>
+<tr>
+<td>数据存储dataNode</td>
+<td>文件的各个 block 的具体存储管理由 dataNode节点承担。<br/>每一个 block 都可以在多个dataNode上。<br/>dataNode需要定时向 nameNode汇报自己持有的 block信息。 <br/>存储多个副本（副本数量也可以通过参数设置 <code>dfs.replication</code>，默认是 3）。</td>
+</tr>
+<tr>
+<td>副本机制</td>
+<td>为了容错，文件的所有 block 都会有副本。每个文件的 block 大小和副本系数都是可配置的。<br/>应用程序可以指定某个文件的副本数目。副本系数可以在文件创建的时候指定，也可以在之后改变。</td>
+</tr>
+<tr>
+<td>一次写入，多次读出</td>
+<td>HDFS 是设计成适应一次写入，多次读出的场景，且不支持文件的修改。</td>
+</tr>
+</tbody></table>
+<h2 id="三、命令行接口"><a href="#三、命令行接口" class="headerlink" title="三、命令行接口"></a>三、命令行接口</h2><h3 id="1-常用命令"><a href="#1-常用命令" class="headerlink" title="1 常用命令"></a>1 常用命令</h3><p>HDFS提供了各种交互方式，无疑命令行是最简单的，下面总结一些常用的交互命令。在bash窗口输入<code>hdfs dfs [generic options]</code>(反正就是一个未知命令就行)，会显示出HDFS命令行使用说明。</p>
+<p><strong>ls：</strong>查看目录下内容，包括文件名，权限，所有者，大小和修改时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -ls [-R] &lt;args&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>mkdir</strong>：创建目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -mkdir [-p] &lt;paths&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>moveFromLocal</strong>：将文件从本地剪切到hdfs</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -moveFromLocal &lt;localsrc&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>mv</strong>：将文件从源移动到目标；此命令还允许多个源，在这种情况下，目标需要是一个目录。不允许跨文件系统移动文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -mv URI [URI...] &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>put</strong>：将本地文件系统中的一个或多个目录复制到目标文件系统，还可以从stdin读取输入并将其写入目标文件系统。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -put &lt;localsrc&gt; ... &lt;dst&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>appendToFile</strong>：追加一个或者多个文件到hdfs指定文件中，也可以从命令行读取输入。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -appendToFile &lt;localsrc&gt; ... &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>cat</strong>：查看内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -cat URI [URI ...]</span><br></pre></td></tr></table></figure>
+
+<p><strong>cp</strong>：复制文件(夹)，可以覆盖，可以保留原有权限信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -cp [-f] [-p | -p[topax]] URI [URI ...] &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>rm</strong>：删除指定参数得文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -rm [-f] [-r | -R] [-skipTrash] URI [URI ...]</span><br></pre></td></tr></table></figure>
+
+<p><strong>chmod</strong>：修改权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; URI [URI ...]</span><br></pre></td></tr></table></figure>
+
+<p><strong>chown</strong>：修改所有者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -chmod [-R] [OWNER][:[GROUP]] URI [URI]</span><br></pre></td></tr></table></figure>
+
+<p><strong>expunge</strong>：清空回收站</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -expunge</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-文件限额配置命令"><a href="#2-文件限额配置命令" class="headerlink" title="2 文件限额配置命令"></a>2 文件限额配置命令</h3><p>hdfs文件的限额配置允许我们以文件大小或者文件个数来限制我们在某个目录下上传的文件数量或者文件内容总量，以便达到我们类似百度网盘等限制每个用户允许上传的最大的文件的量</p>
+<p><strong>数量限额</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -mkdir -p /user/root/list</span><br><span class="line">$ hdfs dfsadmin -setQuota 2 list  <span class="comment">## 给该文件夹下面设置最多上传两个文件</span></span><br><span class="line">$ hdfs dfsadmin -clrQuota /user/root/list <span class="comment">## 清除文件数量限制</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>空间大小限额</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfsadmin -setSpaceQuota 4k /user/root/list <span class="comment">## 限制空间大小4kb</span></span><br><span class="line">$ hdfs dfsadmin -clrSpaceQuota /user/root/list <span class="comment">## 清除空间限额</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>查看文件限额数量</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfs -count -q -h /user/root/list</span><br><span class="line"><span class="comment">## 该查询命令显示八个参数，分别是</span></span><br><span class="line"><span class="comment">## 前四个： 文件个数配额，文件个数配额余量，空间配置，空间剩余配置</span></span><br><span class="line"><span class="comment">## 后四个： 文件夹个数，文件个数，内容大小，路径</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>图中表示，文件配额个数为3个，剩余0个；空间为4MB，剩余4MB；文件夹1个；已上传文件个数为2个；上传文件的大小为6.7kb; 限额的路径为<code>/user/root/list</code></p>
+<h3 id="3-安全模式"><a href="#3-安全模式" class="headerlink" title="3 安全模式"></a>3 安全模式</h3><p>安全模式是HDFS所处的一种特殊状态，在这种状态下，文件系统只接受读数据请求，而不接受删除、修改等变更请求。在NameNode主节点启动时，HDFS首先进入安全模式，DataNode在启动的时候会向namenode汇报可用的block等状态，当整个系统达到安全标准时，HDFS自动离开安全模式。如果HDFS出于安全模式下，则文件block不能进行任何的副本复制操作，因此达到最小的副本数量要求是基于datanode启动时的状态来判定的，启动时不会再做任何复制（从而达到最小副本数量要求），hdfs集群刚启动的时候，默认30S钟的时间是出于安全期的，只有过了30S之后，集群脱离了安全期，然后才可以对集群进行操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs dfsadmin [-safemode enter | leave | get | <span class="built_in">wait</span>] </span><br></pre></td></tr></table></figure>
+
+<h2 id="四、Hadoop文件系统"><a href="#四、Hadoop文件系统" class="headerlink" title="四、Hadoop文件系统"></a>四、Hadoop文件系统</h2><p>Hadoop有一个抽象的文件系统概念，HDFS只是其中的一个实现。java抽象类<code>org.apache.hadoop.fs.FileSystem</code>定义了Hadoop中一个文件系统的客户端接口，该抽象类有以下几个具体的实现：</p>
+<table>
+<thead>
+<tr>
+<th>文件系统</th>
+<th>URI方案</th>
+<th>Java实现（org.apache.hadoop包中）</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Local</td>
+<td>file</td>
+<td>fs.LocalFileSystem</td>
+<td>使用客户端校验和的本地文件系统</td>
+</tr>
+<tr>
+<td>HDFS</td>
+<td>hdfs</td>
+<td>hdfs.DistributedFileSystem</td>
+<td>Hadoop的分布式文件系统</td>
+</tr>
+<tr>
+<td>WebHDFS</td>
+<td>Webhdfs</td>
+<td>Hdfs.web.WebHdfsFileSystem</td>
+<td>基于HTTP的文件系统，提供对HDFS的认证读/写访问</td>
+</tr>
+<tr>
+<td>SecureWebHDFS</td>
+<td>swebhdfs</td>
+<td>hdfs.web.SWebHdfsFileSystem</td>
+<td>WebHDFS的https版本</td>
+</tr>
+<tr>
+<td>HAR</td>
+<td>har</td>
+<td>fs.HarFileSystem</td>
+<td>一个构建在其它文件系统之上用用户文件存档的文件系统</td>
+</tr>
+<tr>
+<td>View</td>
+<td>viewfs</td>
+<td>viewfs.ViewFileSystem</td>
+<td>针对其它hadoop文件系统的客户端挂载表</td>
+</tr>
+<tr>
+<td>FTP</td>
+<td>ftp</td>
+<td>fs.ftp.FTPFileSystem</td>
+<td>由FTP服务器支持的文件系统</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>s3a</td>
+<td>fs.s3a.S3AFileSystem</td>
+<td>由Amazon S3支持的文件系统</td>
+</tr>
+<tr>
+<td>Azure</td>
+<td>wasb</td>
+<td>fs.azure.NativeAzureFileSystem</td>
+<td>由Microsoft Azure支持的文件系统</td>
+</tr>
+<tr>
+<td>Swift</td>
+<td>swift</td>
+<td>fs.swift.snative.SwiftNativeFileSystem</td>
+<td>由OpenStack Swift支持的文件系统</td>
+</tr>
+</tbody></table>
+<p>五、</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/HDFS/" rel="tag"># HDFS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/19/Hive%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Hive学习笔记">
+                  <i class="fa fa-chevron-left"></i> Hive学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18041583号-1 </a>
+      <img src="/images/beian.png">
+  </div>
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.wj</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
